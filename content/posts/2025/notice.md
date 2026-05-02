@@ -7,7 +7,7 @@ categories: [随笔杂谈]
 tags: [通知]
 recommend: 10
 description: 初三学业压力大，暂停更新。网站经历技术问题，已恢复但丢失部分内容。将调整投入学业，更换数据库，期间可能短暂不可用。
-image: https://eimg.yujiay.wang/images/2025/11/29/image.png
+image: https://s3.qixz.cn/ywty/2026/04/26/69edf399f14ed.png
 ---
 
 ## 关于暂停更新
@@ -68,7 +68,7 @@ CSS样式无法修复，尝试手动编辑数据库信息
 
 ::pic
 ---
-src: https://eimg.yujiay.wang/images/2025/11/29/image.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf399f14ed.png
 caption: 我是鱼
 ---
 ::

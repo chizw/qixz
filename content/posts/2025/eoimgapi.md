@@ -6,7 +6,7 @@ categories: [技术干货]
 tags: [EdgeOne]
 recommend: 10
 description: 使用Eo Pages搭建随机图API，Fork Acgapi仓库，选择加速区域，部署main分支。访问路径包括/get（双端自适应）、/pc（电脑端）和/pe（移动端），注意调整图片存储和数量。
-image: https://api.wudu.ltd/api/acg/
+image: https://api.yppp.net/api.php
 ---
 
 ::alert{type="error"}
@@ -23,7 +23,7 @@ image: https://api.wudu.ltd/api/acg/
 
 ::pic
 ---
-src: https://api.wudu.ltd/api/acg/
+src: https://api.yppp.net/api.php
 caption: 随机图片API效果示例
 ---
 ::
@@ -100,19 +100,9 @@ caption: Eo Pages创建项目示例
 - **维护者**：筱序二十
 - **GitHub仓库**：[https://github.com/scfcn/acgapi/](https://github.com/scfcn/acgapi/)
 
-::pic
----
-src: https://img.shields.io/github/stars/scfcn/acgapi
-caption: GitHub Stars
----
-::
 
-::pic
----
-src: https://img.shields.io/github/license/scfcn/acgapi
-caption: 许可证
----
-::
+![GitHub Stars](https://img.shields.io/github/stars/scfcn/acgapi)
+![GitHub License](https://img.shields.io/github/license/scfcn/acgapis)
 
 ## 后续维护
 

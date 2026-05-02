@@ -4,9 +4,9 @@ date: 2025-09-07 07:38:00
 type: talk
 categories: [随笔杂谈]
 tags: [梦记]
-recommend: 15
+recommend: 19
 description: 上学后做梦频次增多，记录了一个包含高空球场、茉莉香女生、美食城、生态园爬山、祖孙护弟等片段的梦境。醒来后流口水的状态解释了梦境中的悬空和河流意象，记忆犹新的是梦中女生的青春活力与美好。
-image: https://i.p-i.vip/135/20251129-692ad2dfd2513.png
+image: https://s3.qixz.cn/ywty/2026/05/02/69f5ca6d1c639.webp
 ---
 
 上学后，做梦的频次多了不少，可能是因为生活变得更加丰富了吧。今天醒来后，我依稀记得梦境的片段，于是便有了这篇梦记（'······'均为记忆模糊或遗忘的部分）。
@@ -45,7 +45,7 @@ image: https://i.p-i.vip/135/20251129-692ad2dfd2513.png
 
 ::pic
 ---
-src: https://eimg.yujiay.wang/images/2025/11/29/-.jpg
+src: https://s3.qixz.cn/ywty/2026/05/02/69f5ce270dafb.webp
 caption: 每日精选图片
 ---
 ::

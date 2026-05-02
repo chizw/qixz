@@ -5,7 +5,7 @@ type: tech
 categories: [项目展示]
 tags: [开源项目, 公开服务]
 description: 这里是我维护的公开服务与开源项目集合，涵盖多个技术领域，致力于为开发者社区提供实用工具和服务。
-image: https://i.p-i.vip/135/20260210-698b15c0dcbda.webp
+image: https://s3.qixz.cn/ywty/2026/04/26/69edf162bf10b.webp
 recommend: 17
 ---
 

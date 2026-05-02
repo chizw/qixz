@@ -10,48 +10,43 @@ const props = withDefaults(defineProps<{
 	type: 'netease',
 })
 
-const isPlaying = ref(false)
-const isLoading = ref(false)
-const audioRef = useTemplateRef('audio-player')
-const progress = ref(0)
-const currentTime = ref(0)
-const duration = ref(0)
+const coverError = ref(false)
 
 const musicInfo = computed(() => {
-	const title = props.title || '未知歌曲'
-	const author = props.author || '未知艺术家'
-	return { title, author }
+	if (props.title) {
+		return {
+			title: props.title,
+			author: props.author || '未知艺术家',
+		}
+	}
+	switch (props.type) {
+		case 'netease':
+			return { title: '网易云音乐', author: '点击播放' }
+		case 'qq':
+			return { title: 'QQ音乐', author: '点击播放' }
+		case 'kugou':
+			return { title: '酷狗音乐', author: '点击播放' }
+		case 'kuwo':
+			return { title: '酷我音乐', author: '点击播放' }
+		case 'spotify':
+			return { title: 'Spotify', author: '点击播放' }
+		default:
+			return { title: '未知歌曲', author: '未知艺术家' }
+	}
 })
 
 const coverUrl = computed(() => {
-	if (props.cover)
-		return props.cover
-	switch (props.type) {
-		case 'netease':
-			return `https://p1.music.126.net/${props.id}/${props.id}.jpg`
-		default:
-			return undefined
-	}
+	if (props.cover) return props.cover
+	return undefined
 })
 
-const audioUrl = computed(() => {
-	if (props.url)
-		return props.url
-	switch (props.type) {
-		case 'netease':
-			return `https://music.163.com/song/media/outer/url?id=${props.id}.mp3`
-		case 'qq':
-			return `https://c.y.qq.com/v8/playsquare/index.html?id=${props.id}`
-		case 'kugou':
-			return `https://www.kugou.com/song/#hash=${props.id}`
-		case 'kuwo':
-			return `https://www.kuwo.cn/play_detail/${props.id}`
-		case 'spotify':
-			return `https://open.spotify.com/embed/track/${props.id}`
-		default:
-			return undefined
-	}
+const showCover = computed(() => {
+	return coverUrl.value && !coverError.value
 })
+
+function onCoverError() {
+	coverError.value = true
+}
 
 const externalUrl = computed(() => {
 	switch (props.type) {
@@ -71,143 +66,56 @@ const externalUrl = computed(() => {
 			return undefined
 	}
 })
-
-function togglePlay() {
-	if (!audioRef.value)
-		return
-	if (isPlaying.value) {
-		audioRef.value.pause()
-	}
-	else {
-		audioRef.value.play()
-	}
-}
-
-function onPlay() {
-	isPlaying.value = true
-	isLoading.value = false
-}
-
-function onPause() {
-	isPlaying.value = false
-}
-
-function onTimeUpdate() {
-	if (!audioRef.value)
-		return
-	currentTime.value = audioRef.value.currentTime
-	duration.value = audioRef.value.duration || 0
-	if (duration.value > 0) {
-		progress.value = (currentTime.value / duration.value) * 100
-	}
-}
-
-function onLoadedMetadata() {
-	if (audioRef.value) {
-		duration.value = audioRef.value.duration
-	}
-}
-
-function seek(e: MouseEvent) {
-	if (!audioRef.value || !duration.value)
-		return
-	const target = e.currentTarget as HTMLElement
-	const rect = target.getBoundingClientRect()
-	const percent = (e.clientX - rect.left) / rect.width
-	audioRef.value.currentTime = percent * duration.value
-}
-
-function formatTime(seconds: number): string {
-	if (!seconds || !Number.isFinite(seconds))
-		return '0:00'
-	const mins = Math.floor(seconds / 60)
-	const secs = Math.floor(seconds % 60)
-	return `${mins}:${secs.toString().padStart(2, '0')}`
-}
-
-onUnmounted(() => {
-	if (audioRef.value) {
-		audioRef.value.pause()
-	}
-})
 </script>
 
 <template>
-<div class="music-player">
-	<audio
-		ref="audio-player"
-		:src="audioUrl"
-		@play="onPlay"
-		@pause="onPause"
-		@timeupdate="onTimeUpdate"
-		@loadedmetadata="onLoadedMetadata"
-		@waiting="isLoading = true"
-		@canplay="isLoading = false"
-	/>
-
-	<div class="player-content">
-		<div class="cover" :class="{ playing: isPlaying }">
-			<img v-if="coverUrl" :src="coverUrl" :alt="musicInfo.title" @error="($event.target as HTMLImageElement).style.display = 'none'">
-			<Icon v-else name="ph:music-notes-bold" class="placeholder" />
-		</div>
-
-		<div class="info">
-			<div class="title">
-				{{ musicInfo.title }}
-			</div>
-			<div class="author">
-				{{ musicInfo.author }}
-			</div>
-
-			<div class="progress-bar" @click="seek">
-				<div class="progress" :style="{ width: `${progress}%` }" />
-			</div>
-
-			<div class="controls">
-				<button class="play-btn" :disabled="isLoading" @click="togglePlay">
-					<Icon v-if="isLoading" name="ph:spinner-bold" class="spin" />
-					<Icon v-else-if="isPlaying" name="ph:pause-fill" />
-					<Icon v-else name="ph:play-fill" />
-				</button>
-
-				<span class="time">
-					{{ formatTime(currentTime) }} / {{ formatTime(duration) }}
-				</span>
-
-				<a v-if="externalUrl" :href="externalUrl" target="_blank" rel="noopener" class="external-link">
-					<Icon name="ph:arrow-square-out-bold" />
-				</a>
-			</div>
-		</div>
+<a
+	v-if="externalUrl"
+	:href="externalUrl"
+	target="_blank"
+	rel="noopener"
+	class="music-player"
+>
+	<div class="cover">
+		<img v-if="showCover" :src="coverUrl!" :alt="musicInfo.title" @error="onCoverError">
+		<Icon v-else name="ph:music-notes-bold" class="placeholder" />
 	</div>
-</div>
+	<div class="info">
+		<div class="title">{{ musicInfo.title }}</div>
+		<div class="author">{{ musicInfo.author }}</div>
+	</div>
+	<div class="play-icon">
+		<Icon name="ph:play-circle-fill" />
+	</div>
+</a>
 </template>
 
 <style lang="scss" scoped>
 .music-player {
-	overflow: hidden;
+	display: flex;
+	gap: 0.8rem;
+	align-items: center;
 	margin: 1rem 0;
-	border-radius: 0.8rem;
+	padding: 0.8rem 1rem;
+	border-radius: 0.6rem;
 	box-shadow: 0 2px 0.5rem var(--ld-shadow);
 	background: var(--c-bg-2);
-}
+	text-decoration: none;
+	transition: all 0.2s;
+	cursor: pointer;
 
-audio {
-	display: none;
-}
-
-.player-content {
-	display: flex;
-	gap: 1rem;
-	padding: 1rem;
+	&:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 4px 0.8rem var(--ld-shadow);
+	}
 }
 
 .cover {
 	flex-shrink: 0;
 	overflow: hidden;
-	width: 80px;
-	height: 80px;
-	border-radius: 0.5rem;
+	width: 44px;
+	height: 44px;
+	border-radius: 0.35rem;
 	background: var(--c-bg-soft);
 
 	img {
@@ -222,31 +130,22 @@ audio {
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		font-size: 2rem;
+		font-size: 1.3rem;
 		color: var(--c-text-3);
 	}
-
-	&.playing img {
-		animation: rotate 20s linear infinite;
-	}
-}
-
-@keyframes rotate {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
 }
 
 .info {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	gap: 0.3rem;
+	gap: 0.15rem;
 	min-width: 0;
 }
 
 .title {
 	overflow: hidden;
-	font-size: 0.95rem;
+	font-size: 0.85rem;
 	font-weight: 600;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -255,90 +154,21 @@ audio {
 
 .author {
 	overflow: hidden;
-	font-size: 0.8rem;
+	font-size: 0.7rem;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: var(--c-text-3);
 }
 
-.progress-bar {
-	position: relative;
-	height: 4px;
-	border-radius: 2px;
-	background: var(--c-bg-soft);
-	cursor: pointer;
-
-	.progress {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		border-radius: 2px;
-		background: var(--c-primary);
-		transition: width 0.1s linear;
-	}
-
-	&:hover .progress {
-		background: var(--c-primary-hover);
-	}
-}
-
-.controls {
+.play-icon {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
-	margin-top: auto;
-}
+	font-size: 1.6rem;
+	color: var(--c-primary);
+	transition: transform 0.2s;
 
-.play-btn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0.3rem;
-	border: none;
-	border-radius: 50%;
-	background: var(--c-primary);
-	font-size: 1rem;
-	color: white;
-	transition: all 0.2s;
-	cursor: pointer;
-
-	&:hover:not(:disabled) {
-		background: var(--c-primary-hover);
-		transform: scale(1.05);
-	}
-
-	&:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
-	.spin {
-		animation: spin 1s linear infinite;
-	}
-}
-
-@keyframes spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
-}
-
-.time {
-	font-variant-numeric: tabular-nums;
-	font-size: 0.75rem;
-	color: var(--c-text-3);
-}
-
-.external-link {
-	display: flex;
-	align-items: center;
-	margin-left: auto;
-	font-size: 0.9rem;
-	color: var(--c-text-3);
-	transition: color 0.2s;
-
-	&:hover {
-		color: var(--c-primary);
+	.music-player:hover & {
+		transform: scale(1.1);
 	}
 }
 </style>

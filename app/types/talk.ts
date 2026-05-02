@@ -22,7 +22,25 @@ export interface TalkItem {
 		title?: string
 		image?: string
 		description?: string
+		favicon?: string
+	}
+	location?: {
+		name: string
+		address?: string
+		latitude?: number
+		longitude?: number
+		url?: string
+	}
+	github?: {
+		owner: string
+		repo: string
+		url: string
+		description?: string
+		stars?: number
+		forks?: number
 	}
 	tags?: string[]
-	location?: string
+	favCount?: number
+	/** 说说原地址 */
+	originalUrl?: string
 }

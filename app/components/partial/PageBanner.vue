@@ -7,7 +7,15 @@ defineProps<{
 </script>
 
 <template>
-<div class="page-banner" :style="{ backgroundImage: `url(${image})` }">
+<div class="page-banner">
+	<NuxtImg
+		class="banner-image"
+		:src="image"
+		:alt="title"
+		fetchpriority="high"
+		width="1200"
+		height="320"
+	/>
 	<div class="banner-content">
 		<h1>{{ title }}</h1>
 		<p v-if="description">
@@ -28,8 +36,13 @@ defineProps<{
 	max-height: 320px;
 	margin: 1rem;
 	border-radius: 8px;
-	background-position: 50%;
-	background-size: cover;
+
+	.banner-image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 
 	.banner-content {
 		display: flex;

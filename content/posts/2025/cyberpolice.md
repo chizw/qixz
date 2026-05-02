@@ -7,7 +7,7 @@ categories: [随笔杂谈]
 tags: [互联网]
 description: 互联网并非法外之地，开盒等违法犯罪行为将承担严重后果。侵犯公民个人信息、侮辱诽谤、非法利用信息网络等行为均构成犯罪，需移交公安处理。网络交易需谨慎，避免诈骗。呼吁遵守法律，维护网络秩序。
 recommend: 10
-image: https://i.p-i.vip/135/20260102-6957632e5595a.webp
+image: https://s3.qixz.cn/ywty/2026/05/02/69f5ca59d1854.webp
 ---
 
 # 互联网不是法外之地！
@@ -22,7 +22,7 @@ image: https://i.p-i.vip/135/20260102-6957632e5595a.webp
 
 ### 特别点名批评
 ::quote{icon="ph:warning-circle-duotone"}
-[罪人堂](https://zrwiki.top/)
+[罪人堂]()
 ::
 
 ### 举报情况

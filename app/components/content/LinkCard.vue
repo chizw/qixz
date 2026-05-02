@@ -4,6 +4,7 @@ defineProps<{
 	title: string
 	description?: string
 	icon?: string
+	favicon?: string
 	mirror?: ImgService
 }>()
 </script>
@@ -20,6 +21,8 @@ defineProps<{
 	</div>
 	<slot name="icon" class="link-card-icon-slot">
 		<UtilImg v-if="icon" class="link-card-icon" :src="icon" :mirror />
+		<img v-else-if="favicon" class="link-card-favicon" :src="favicon" alt="" @error="($event.target as HTMLImageElement).style.display = 'none'">
+		<Icon v-else name="ph:link-bold" class="link-card-default-icon" />
 	</slot>
 </UtilLink>
 </template>
@@ -36,7 +39,6 @@ defineProps<{
 	font-size: 0.9em;
 	line-height: 1.4;
 
-	// 溢出显示省略号
 	.link-card-info {
 		flex-grow: 1;
 		overflow: hidden;
@@ -50,7 +52,6 @@ defineProps<{
 		line-clamp: 2;
 	}
 
-	// 内部需要是块元素
 	.link-card-description {
 		overflow: hidden;
 		opacity: 0.5;
@@ -66,6 +67,20 @@ defineProps<{
 		max-width: 5rem;
 		border-radius: 0.5rem;
 		object-fit: cover;
+	}
+
+	.link-card-favicon {
+		flex-shrink: 0;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 0.3rem;
+		object-fit: contain;
+	}
+
+	.link-card-default-icon {
+		flex-shrink: 0;
+		font-size: 1.5rem;
+		color: var(--c-text-3);
 	}
 }
 </style>

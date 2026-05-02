@@ -70,6 +70,12 @@ export async function fetchTalks(options: FetchTalksOptions = {}): Promise<TalkI
 		return date
 	}
 
+	function normalizeUrl(url: string | undefined): string | undefined {
+		if (!url) return undefined
+		if (url.startsWith('http://') || url.startsWith('https://')) return url
+		return baseUrl + (url.startsWith('/') ? url : `/${url}`)
+	}
+
 	try {
 		const response = await fetch(`${baseUrl}/api/echo/page?page=${page}&pageSize=${pageSize}`)
 		const data: ApiResponse = await response.json()
@@ -84,49 +90,125 @@ export async function fetchTalks(options: FetchTalksOptions = {}): Promise<TalkI
 				text: item.content,
 				date: normalizeDate(item.created_at),
 				tags: item.tags?.map(tag => tag.name) || [],
+				favCount: item.fav_count || 0,
+				originalUrl: `${baseUrl}/echo/${item.id}`,
 			}
 
 			if (item.echo_files && item.echo_files.length > 0) {
 				const imageFiles = item.echo_files.filter(f => f.file?.category === 'image')
 				if (imageFiles.length > 0) {
-					talkItem.images = imageFiles.map(f => f.file?.url || '').filter(Boolean)
+					talkItem.images = imageFiles.map(f => normalizeUrl(f.file?.url)).filter(Boolean) as string[]
 				}
 			}
 
 			if (item.extension) {
 				const extType = item.extension.type?.toUpperCase()
+				const payload = item.extension.payload as Record<string, unknown> | undefined
+
 				if (extType === 'VIDEO') {
-					const payload = item.extension.payload as { type?: string, id?: string } | undefined
+					const videoPayload = payload as { type?: string, id?: string } | undefined
 					const videoId = item.extension.echo_id || item.extension.id
-					const videoTypeRaw = payload?.type?.toLowerCase() || 'bilibili'
+					const videoTypeRaw = videoPayload?.type?.toLowerCase() || 'bilibili'
 					const videoType: 'raw' | 'bilibili' | 'bilibili-nano' | 'youtube' | 'douyin' | 'douyin-wide' | 'tiktok' = ['raw', 'bilibili', 'bilibili-nano', 'youtube', 'douyin', 'douyin-wide', 'tiktok'].includes(videoTypeRaw) ? videoTypeRaw as any : 'bilibili'
 
 					talkItem.video = {
 						type: videoType,
-						id: payload?.id || videoId,
+						id: videoPayload?.id || videoId,
 					}
 				}
 				else if (extType === 'MUSIC') {
-					const payload = item.extension.payload as { type?: string, id?: string, author?: string, title?: string, url?: string, cover?: string } | undefined
-					const musicTypeRaw = payload?.type || 'netease'
-					const musicType: 'netease' | 'qq' | 'kugou' | 'kuwo' | 'xiami' | 'apple' | 'spotify' = ['netease', 'qq', 'kugou', 'kuwo', 'xiami', 'apple', 'spotify'].includes(musicTypeRaw) ? musicTypeRaw as any : 'netease'
+					const musicPayload = payload as { 
+						type?: string
+						id?: string
+						author?: string
+						artist?: string
+						title?: string
+						song_name?: string
+						name?: string
+						url?: string
+						cover?: string
+						pic?: string
+					} | undefined
+
+					let musicType: 'netease' | 'qq' | 'kugou' | 'kuwo' | 'xiami' | 'apple' | 'spotify' = 'netease'
+					let musicId = musicPayload?.id || item.extension.id
+					let musicTitle = musicPayload?.title || musicPayload?.song_name || musicPayload?.name
+					let musicAuthor = musicPayload?.author || musicPayload?.artist
+					let musicCover = musicPayload?.cover || musicPayload?.pic
+					let musicUrl: string | undefined
+
+					if (musicPayload?.url) {
+						let urlStr = String(musicPayload.url).trim()
+						urlStr = urlStr.replace(/^`+|`+$/g, '').trim()
+						musicUrl = normalizeUrl(urlStr)
+						
+						if (urlStr.includes('music.163.com')) {
+							musicType = 'netease'
+							const idMatch = urlStr.match(/[?&]id=(\d+)/)
+							if (idMatch) {
+								musicId = idMatch[1]
+							}
+						}
+						else if (urlStr.includes('y.qq.com') || urlStr.includes('c.y.qq.com')) {
+							musicType = 'qq'
+							const idMatch = urlStr.match(/songDetail\/(\w+)/) || urlStr.match(/[?&]id=(\w+)/)
+							if (idMatch) {
+								musicId = idMatch[1]
+							}
+						}
+						else if (urlStr.includes('kugou.com')) {
+							musicType = 'kugou'
+						}
+						else if (urlStr.includes('kuwo.cn')) {
+							musicType = 'kuwo'
+						}
+						else if (urlStr.includes('spotify.com')) {
+							musicType = 'spotify'
+							const idMatch = urlStr.match(/track\/(\w+)/)
+							if (idMatch) {
+								musicId = idMatch[1]
+							}
+						}
+					}
 
 					talkItem.music = {
 						type: musicType,
-						id: payload?.id || item.extension.id,
-						author: payload?.author,
-						title: payload?.title,
-						url: payload?.url,
-						cover: payload?.cover,
+						id: musicId || '',
+						author: musicAuthor,
+						title: musicTitle,
+						url: musicUrl,
+						cover: normalizeUrl(musicCover),
 					}
 				}
-				else if (extType === 'LINK') {
-					const payload = item.extension.payload as { url?: string, title?: string, image?: string, description?: string } | undefined
+				else if (extType === 'WEBSITE' || extType === 'LINK') {
+					const linkPayload = payload as { url?: string, title?: string, image?: string, description?: string, favicon?: string } | undefined
 					talkItem.link = {
-						url: payload?.url || item.extension.echo_id,
-						title: payload?.title,
-						image: payload?.image,
-						description: payload?.description,
+						url: normalizeUrl(linkPayload?.url || item.extension.echo_id) || '',
+						title: linkPayload?.title,
+						image: normalizeUrl(linkPayload?.image),
+						description: linkPayload?.description,
+						favicon: normalizeUrl(linkPayload?.favicon),
+					}
+				}
+				else if (extType === 'LOCATION') {
+					const locationPayload = payload as { name?: string, address?: string, latitude?: number, longitude?: number, url?: string } | undefined
+					talkItem.location = {
+						name: locationPayload?.name || '',
+						address: locationPayload?.address,
+						latitude: locationPayload?.latitude,
+						longitude: locationPayload?.longitude,
+						url: locationPayload?.url,
+					}
+				}
+				else if (extType === 'GITHUBPROJ') {
+					const githubPayload = payload as { owner?: string, repo?: string, url?: string, description?: string, stars?: number, forks?: number } | undefined
+					talkItem.github = {
+						owner: githubPayload?.owner || '',
+						repo: githubPayload?.repo || '',
+						url: githubPayload?.url || `https://github.com/${githubPayload?.owner}/${githubPayload?.repo}`,
+						description: githubPayload?.description,
+						stars: githubPayload?.stars,
+						forks: githubPayload?.forks,
 					}
 				}
 			}

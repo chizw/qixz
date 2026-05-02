@@ -6,7 +6,7 @@ categories: [技术干货]
 tags: [GitHub, 雨云自动签到, Python]
 description: 利用GitHub Actions实现雨云自动签到，通过配置Secrets和启用工作流，实现定时运行Python脚本完成登录、验证码识别和签到，每日UTC+8 12点自动执行，失败会重试。
 recommend: 20
-image: https://i.p-i.vip/135/20251129-692ad884d08dc.webp
+image: https://s3.qixz.cn/ywty/2026/04/26/69edf5930eab0.webp
 ---
 
 ## 1. 项目背景
@@ -15,7 +15,7 @@ image: https://i.p-i.vip/135/20251129-692ad884d08dc.webp
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a746ad6730.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf6467f577.png
 caption: 项目截图
 ---
 ::
@@ -43,7 +43,7 @@ caption: 项目截图
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a7418e8306.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf65a6899b.png
 caption: Fork仓库示例
 ---
 ::
@@ -66,14 +66,14 @@ caption: Fork仓库示例
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a743451e82.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf6506ffbd.png
 caption: 配置Secrets示例
 ---
 ::
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a749b220b1.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf63c2546b.pngg
 caption: 创建Secret示例
 ---
 ::
@@ -87,8 +87,20 @@ caption: 创建Secret示例
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a74f38f515.png
-caption: 启用工作流示例
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf630c1e82.png
+caption: 启用工作流示例1
+---
+::
+::pic
+---
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf631009c8.png
+caption: 启用工作流示例2
+---
+::
+::pic
+---
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf631b5e0d.png
+caption: 启用工作流示例3
 ---
 ::
 
@@ -97,12 +109,12 @@ caption: 启用工作流示例
 当工作流运行完成后，如果出现以下字样，表示签到成功：
 
 ::alert{type="success"}
-恭喜！签到成功！<font color="red">Congratulations</font>
+恭喜！签到成功！<span style="color: red;">Congratulations</span>
 ::
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/29/692a74f35f2e3.png
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf630a0d79.png
 caption: 签到成功示例
 ---
 ::
@@ -133,7 +145,7 @@ caption: 签到成功示例
 
 ::pic
 ---
-src: https://i.p-i.vip/135/20251129-692ad884d08dc.webp
+src: https://s3.qixz.cn/ywty/2026/04/26/69edf5930eab0.webp
 caption: 中秋快乐
 ---
 ::

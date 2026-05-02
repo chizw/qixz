@@ -5,7 +5,7 @@ type: tech
 categories: [技术干货]
 tags: [Twikoo, 教程]
 description: 本文介绍如何通过修改twikoo.min.js文件来解决无法获取QQ昵称的问题，帮你快速恢复评论系统的正常使用。
-image: https://i.p-i.vip/135/20260223-699c50598c843.webp
+image: https://s3.qixz.cn/ywty/2026/04/26/69edf07974ac7.webp
 ---
 
 # 解决Twikoo获取QQ昵称失败
@@ -103,7 +103,7 @@ description: GitHub Gist 公开代码，点击查看完整代码
 ## 每日一图
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2026/02/23/699c5106e7c78.webp
+src: https://s3.qixz.cn/ywty/2026/04/26/69edefddccb59.webp
 caption: 李诗雅
 ---
 ::

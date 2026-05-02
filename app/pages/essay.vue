@@ -140,15 +140,17 @@ function getEssayDate(date?: string | Date) {
 		<transition-group v-else name="talk-fade" tag="div">
 			<div v-for="talk in recentTalks" :key="talk.id || talk.date" class="talk-item">
 				<div class="talk-meta">
-					<NuxtImg class="avatar" :src="author.avatar" :alt="author.name" />
+					<NuxtImg class="avatar" :src="author.avatar" :alt="author.name" width="48" height="48" />
 					<div class="info">
 						<div class="nick">
 							{{ author.name }}
 							<Icon class="verified" name="i-material-symbols:verified" />
 						</div>
 						<div class="date">
+						<ClientOnly>
 							{{ getEssayDate(talk.date) }}
-						</div>
+						</ClientOnly>
+					</div>
 					</div>
 				</div>
 
@@ -157,9 +159,14 @@ function getEssayDate(date?: string | Date) {
 					<div v-if="talk.images?.length" class="images">
 						<Pic v-for="(img, imgIndex) in talk.images" :key="imgIndex" class="image" :src="img" />
 					</div>
-					<MusicPlayer v-if="talk.music" class="music" v-bind="talk.music" />
+					<a v-if="talk.music?.url" :href="talk.originalUrl || talk.music.url" target="_blank" rel="noopener" class="music-link">
+					<Icon name="ph:music-notes-bold" />
+					<span>{{ talk.music.title || '音乐' }}</span>
+				</a>
 					<VideoEmbed v-if="talk.video" class="video" v-bind="talk.video" height="" />
-					<LinkCard v-if="talk.link" class="link" :link="talk.link.url" :title="talk.link.title || ''" :description="talk.link.description" :icon="talk.link.image" />
+					<LocationCard v-if="talk.location" class="location-card" v-bind="talk.location" />
+					<GithubCard v-if="talk.github" class="github-card" v-bind="talk.github" />
+					<LinkCard v-if="talk.link" class="link" :link="talk.link.url" :title="talk.link.title || ''" :description="talk.link.description" :icon="talk.link.image" :favicon="talk.link.favicon" />
 				</div>
 
 				<div class="talk-bottom">
@@ -168,17 +175,6 @@ function getEssayDate(date?: string | Date) {
 							<Icon name="ph:tag-bold" />
 							<span>{{ tag }}</span>
 						</span>
-						<a
-							v-if="talk.location"
-							v-tip="`搜索: ${talk.location}`"
-							class="location"
-							:href="`https://bing.com/maps?q=${encodeURIComponent(talk.location)}`"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Icon name="ph:map-pin-bold" />
-							<span>{{ talk.location }}</span>
-						</a>
 					</div>
 					<button v-tip="'评论'" class="comment-btn" @click="replyTalk(talk.text)">
 						<Icon name="ph:chat-circle-bold" />
@@ -294,14 +290,32 @@ function getEssayDate(date?: string | Date) {
 				border-radius: 8px;
 			}
 
-			.music {
-				margin: 0.5rem 0;
+			.music-link {
+				display: inline-flex;
+				gap: 0.3rem;
+				align-items: center;
+				padding: 0.3rem 0.6rem;
+				border-radius: 0.3rem;
+				background: var(--c-bg-soft);
+				font-size: 0.8rem;
+				color: var(--c-primary);
+				text-decoration: none;
+				transition: all 0.2s;
+
+				&:hover {
+					background: var(--c-primary-soft);
+				}
 			}
 
 			.link {
 				width: 100%;
 				max-width: 400px;
 				margin: 0.5rem auto;
+			}
+
+			.location-card,
+			.github-card {
+				margin: 0.5rem 0;
 			}
 		}
 
@@ -313,30 +327,40 @@ function getEssayDate(date?: string | Date) {
 
 			.tags {
 				display: flex;
+				flex-wrap: wrap;
 				gap: 4px;
 				font-size: 0.7rem;
 			}
 
-			.tag, .location {
+			.tag {
 				display: flex;
 				align-items: center;
 				padding: 2px 4px;
 				border-radius: 4px;
 				background-color: var(--c-bg-2);
-				transition: all 0.2s;
-				cursor: pointer;
-
-				&:hover {
-					opacity: 0.8;
-				}
 			}
 
 			.tag .i-ph\:tag-bold + * {
 				margin-left: 0.15em;
 			}
 
-			.location {
-				color: var(--c-primary);
+			.comment-btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.4rem;
+				border: none;
+				border-radius: 0.4rem;
+				background: transparent;
+				font-size: 1rem;
+				color: var(--c-text-3);
+				cursor: pointer;
+				transition: all 0.2s;
+
+				&:hover {
+					background: var(--c-bg-2);
+					color: var(--c-primary);
+				}
 			}
 		}
 	}

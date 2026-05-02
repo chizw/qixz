@@ -4,7 +4,7 @@ date: 2026-01-11 00:00:00
 type: tech
 categories: [技术干货]
 tags: [表情包, 评论区, 个性化]
-image: https://i.p-i.vip/135/20260111-6963914267c65.webp
+image: https://s3.qixz.cn/ywty/2026/04/26/69edf2be43241.webp
 description: 本教程详细讲解了如何从设计到部署，制作属于自己的个性化评论表情包。通过Gemini AI、美图秀秀、微软图片编辑器、图小小等工具，你将学会如何创建、切割、处理、压缩和部署自己的表情包，为评论区增添趣味性和个性化特色。
 recommend: 17
 references:

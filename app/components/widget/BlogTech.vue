@@ -9,9 +9,9 @@ const packages = Object.assign({}, ...Object.values(pnpmWorkspace.catalogs as an
 const [pm, pmVersion] = packageManager.split('@') as [string, string]
 
 const service = computed(() => ([
-	{ label: '全球加速', value: () => [h('img', { src: 'https://i.p-i.vip/135/20260207-6986bf2082a42.webp', alt: 'EdgeOne' }), 'EdgeOne'] },
-	{ label: '构建平台', value: () => [h('img', { src: 'https://i.p-i.vip/135/20260117-696b7c219949f.png', alt: 'Cloudflare' }), 'Cloudflare	'] },
-	{ label: '图片存储', value: () => [h('img', { src: 'https://i.p-i.vip/135/20260117-696b7c21a3374.png', alt: 'baiwulin' }), '白雾林'] },
+	{ label: '全球加速', value: () => [h('img', { src: 'https://s3.qixz.cn/ywty/icons/edgeone.ico', alt: 'EdgeOne', width: 16, height: 16 }), 'EdgeOne'] },
+	{ label: '构建平台', value: () => [h('img', { src: 'https://s3.qixz.cn/ywty/icons/cloudflare.ico', alt: 'Cloudflare', width: 16, height: 16 }), 'Cloudflare'] },
+	{ label: '图片存储', value: () => [h('img', { src: 'https://s3.qixz.cn/ywty/icons/ywty.ico', alt: '云雾图驿', width: 16, height: 16 }), '云雾图驿'] },
 	{ label: '文章许可', value: appConfig.copyright.abbr },
 	{ label: '规范域名', value: getDomain(appConfig.url) },
 ]))
