@@ -97,9 +97,9 @@ const blogConfig = {
 	/** 向 <head> 中添加脚本 */
 	scripts: [
 		// 自己部署的 Umami 统计服务
-		{ src: 'https://um.qixz.cn/script.js', websiteId: '55ed3ffd-f0d7-4b3b-b8b2-e49f3507d028', defer: true, crossorigin: 'anonymous' as const },
+		{ 'src': 'https://um.qixz.cn/script.js', 'data-website-id': '55ed3ffd-f0d7-4b3b-b8b2-e49f3507d028', 'defer': true },
 		// Twikoo 评论系统
-		{ src: 'https://registry.npmmirror.com/twikoo/1.7.7/files/dist/twikoo.min.js', defer: true, crossorigin: 'anonymous' as const },
+		{ src: 'https://registry.npmmirror.com/twikoo/latest/files/dist/twikoo.min.js', defer: true },
 	],
 
 	/** 自己部署的 Twikoo 服务 */
