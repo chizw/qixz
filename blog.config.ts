@@ -98,8 +98,9 @@ const blogConfig = {
 	scripts: [
 		// 自己部署的 Umami 统计服务
 		{ 'src': 'https://um.qixz.cn/script.js', 'data-website-id': '55ed3ffd-f0d7-4b3b-b8b2-e49f3507d028', 'defer': true },
+		{ 'src': 'https://um.qixz.cn/recorder.js', 'data-website-id': '55ed3ffd-f0d7-4b3b-b8b2-e49f3507d028', 'data-sample-rate': '0.15', 'data-mask-leve': 'moderate', 'data-max-duration': '600000', 'defer': true},
 		// Twikoo 评论系统
-		{ src: 'https://registry.npmmirror.com/twikoo/latest/files/dist/twikoo.min.js', defer: true },
+		{ 'src': 'https://registry.npmmirror.com/twikoo/latest/files/dist/twikoo.min.js', 'defer': true },
 	],
 
 	/** 自己部署的 Twikoo 服务 */
