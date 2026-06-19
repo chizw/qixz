@@ -22,8 +22,12 @@ const appConfig = useAppConfig()
 		</div>
 	</nav>
 	<div class="footer-bottom">
-		<p v-html="appConfig.footer.copyright" />
-		<PartialServiceStatus />
+		<p>
+			<span v-html="appConfig.footer.copyright.prefix" />
+			<PartialServiceStatus />
+			<br>
+			<span v-html="appConfig.footer.copyright.suffix" />
+		</p>
 	</div>
 </footer>
 </template>
