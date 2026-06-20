@@ -7,7 +7,7 @@ recommend: 11
 updated: 2026-01-02 12:00:00
 tags: [EdgeOne, 教程]
 description: EdgeOne 提供官方 API `https://api.edgeone.ai/ips` 获取全球回源节点 IP 段，支持 IPv4/IPv6，可通过参数筛选版本和区域。用户可通过 curl 获取并保存，用于防火墙白名单配置，建议自动化更新以应对动态调整的 IP。注意关闭源站防护功能，确保 IP 格式正确。
-image: https://r2.qixz.cn/qxz/img/eo-ips.svg
+image: https://s3.qixz.cn/ywty/2026/06/20/img_eo-ips.svg
 ---
 
 ## EdgeOne 官方 IP 段 API 使用教程：轻松获取回源节点 IP

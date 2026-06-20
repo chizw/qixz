@@ -6,35 +6,34 @@ type: tech
 categories: [技术干货]
 tags: [雾都虚拟备案, 源码, 免费]
 description: 雾都虚拟备案系统提供自动巡查、邮件提醒、中文域名支持等功能，支持PHP 8.1、MySQL 5.6及以上版本，部署简单。系统有Lanzou和GitHub版本，欢迎Star支持。
-image: https://pic.wudu.ltd/pic/2025/10/12/68eaf5354d4b8.png
+image: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf5354d4b8.png
 ---
 
 {cloud title="雾都虚拟备案" type="lanzou" url="https://scfc.lanzout.com/ipj47311kazg" password=""/}
 {cloud title="雾都虚拟备案" type="github" url="https://github.com/scfcn/wuicp" password=""/}
-☁️预览站点：[雾ICP备案中心](https://icp.wudu.ltd/)
 
 ## 二开版本效果展示
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf5354d4b8.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf5354d4b8.png
 caption: 雾都虚拟备案系统首页
 ---
 ::
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf534c6db0.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf534c6db0.png
 caption: 个人备案页面
 ---
 ::
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf535a1765.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf535a1765.png
 caption: 企业备案页面
 ---
 ::
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf52c370a0.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf52c370a0.png
 caption: 后台管理页面
 ---
 ::
@@ -54,7 +53,7 @@ caption: 后台管理页面
 - 添加计划任务
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf52e4a687.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf52e4a687.png
 caption: 自动巡查
 ---
 ::
@@ -63,7 +62,7 @@ caption: 自动巡查
 - 添加计划任务
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf5304e168.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf5304e168.png
 caption: 邮件提醒
 ---
 ::
@@ -76,7 +75,7 @@ caption: 邮件提醒
 - 在config.php中修改
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf53316044.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf53316044.png
 caption: config.php配置文件示例
 ---
 ::

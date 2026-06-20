@@ -87,12 +87,12 @@ recommend: 17
 
 **访问方式**：
 
-:copy{prompt="API 端点" code="https://api.wudu.ltd/"}
+:copy{prompt="API 端点" code="https://api.wuxit.cn/"}
 
 **使用示例**：
 
 ```js
-const example = await fetch('https://api.wudu.ltd/api/acg?return=json')
+const example = await fetch('https://api.wuxit.cn/api/acg?return=json')
 const data = await example.json()
 console.log(data.data.image_url)
 ```
@@ -120,7 +120,7 @@ CF优选
 
 **访问方式**：
 
-:copy{prompt="服务地址" code="https://cdn.xnet.ren/"}
+:copy{prompt="服务地址" code="https://fastjs.qixz.cn/"}
 
 **性能指标**：
 
@@ -182,7 +182,7 @@ domain-card
 
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2026/02/10/698ae7d3877ab.webp
+src: https://ywtypic.wuxit.cn/pic/2026/02/10/698ae7d3877ab.webp
 caption: 项目截图
 ---
 ::

@@ -6,7 +6,7 @@ type: tech
 categories: [技术干货]
 tags: [网站状态检测, 源码]
 description: 该网站状态检测工具源码支持多站点实时监控，可新增、删除和筛选网址，自定义监测间隔，并具备自动重试和日志管理功能，日志会自动清理并展示状态和错误信息。
-image: https://pic.wudu.ltd/pic/2025/11/01/69055863b552c.png
+image: https://ywtypic.wuxit.cn/pic/2025/11/01/69055863b552c.png
 ---
 
 {cloud title="网站检测工具源码" type="lanzou" url="https://scfc.lanzout.com/i4mIq311hc5a" password=""/}
@@ -30,13 +30,13 @@ image: https://pic.wudu.ltd/pic/2025/11/01/69055863b552c.png
 - **日志查阅**：右侧面板的日志展示区，可完整呈现所有或筛选后的监测日志。其中，正常状态日志以黑色呈现，异常日志则以红色高亮显示。此外，日志区会自动滚动至底部，确保您始终能第一时间获取最新监测信息。
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/01/69055863b552c.png
+src: https://ywtypic.wuxit.cn/pic/2025/11/01/69055863b552c.png
 caption: 网站状态检测工具
 ---
 ::
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/11/01/690558642cc8f.png
+src: https://ywtypic.wuxit.cn/pic/2025/11/01/690558642cc8f.png
 caption: 具体演示
 ---
 ::

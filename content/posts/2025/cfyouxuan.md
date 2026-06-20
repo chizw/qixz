@@ -16,7 +16,7 @@ image: https://s3.qixz.cn/ywty/2026/05/02/69f5ddafa60a2.webp
 为了便于理解，实际访问域名称为`域名A`，托管于CF的回源域名称为`域名B`。
 ::
 ::quote{icon="ph:info-circle-duotone"}
-本文的cdn.xnet.ren为访问域名，waf.qzz.io为回源域名。
+本文的ywtypic.wuxit.cn为访问域名，waf.qzz.io为回源域名。
 ::
 ## 一切准备好后，先添加一条DNS记录，作为回源域名`域名B`。
 ### 记录类型为A，记录值为你的源站IP，开启小黄云。

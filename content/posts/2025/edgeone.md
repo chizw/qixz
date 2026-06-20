@@ -7,7 +7,7 @@ categories: [技术干货]
 tags: [EdgeOne, 评测]
 recommend: 16
 description: 腾讯EdgeOneCDN评测显示，其海外节点速度快，国内稳定，但文件下载限速明显。无限流量、请求和DDoS防护是其优势，适合中小型网站。WAF规则有限制，不适合大文件分发。国内性能需优化，适合寻求基础防护和丰富缓存配置的用户。
-image: https://i.p-i.vip/135/20251129-692a761a0ea99.png
+image: https://s3.qixz.cn/ywty/2026/06/20/6a368814d534a.webp
 ---
 
 ## 🌍 腾讯EdgeOne真这么神？深度体验1周，速度/防护/限制全拆解（附避坑指南）

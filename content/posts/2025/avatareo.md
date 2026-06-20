@@ -111,7 +111,7 @@ EdgeOne每月提供以下免费资源：
 
 ## 在线使用体验
 
-[访问头像API](https://avatar.xnet.ren/)
+[访问头像API](https://avatar.wuxit.cn/)
 
 ## 效果预览
 
@@ -119,7 +119,7 @@ EdgeOne每月提供以下免费资源：
 
 ::pic
 ---
-src: https://avatar.xnet.ren/avatar/3d72d0a8e5e7228a2577b347fefe7301
+src: https://fastjs.qixz.cn/avatar/3d72d0a8e5e7228a2577b347fefe7301
 caption: 通过MD5获取头像
 ---
 ::
@@ -128,7 +128,7 @@ caption: 通过MD5获取头像
 
 ::pic
 ---
-src: https://avatar.xnet.ren/avatar/qxbk@qq.com
+src: https://fastjs.qixz.cn/avatar/qxbk@qq.com
 caption: 通过邮箱获取头像
 ---
 ::
@@ -137,7 +137,7 @@ caption: 通过邮箱获取头像
 
 ::pic
 ---
-src: https://avatar.xnet.ren/avatar/2907713872
+src: https://fastjs.qixz.cn/avatar/2907713872
 caption: 通过QQ号获取头像
 ---
 ::

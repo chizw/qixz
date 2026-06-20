@@ -7,7 +7,7 @@ updated: 2026-01-02 12:00:00
 categories: [技术干货]
 tags: [EdgeOne, 教程]
 description: EdgeOne通过全球边缘节点缓存静态资源，显著降低延迟、源站负载和带宽成本。配置缓存规则需设置匹配条件（文件后缀、路径等）、全局配置（智能压缩、HTTPS等）和规则引擎（禁用缓存、默认缓存、动态优化）。关键策略包括静态资源强制缓存、动态内容按需缓存和敏感路径禁用缓存，以提升网站性能。
-image: https://r2.qixz.cn/qxz/img/eo-cache.svg
+image: https://s3.qixz.cn/ywty/2026/06/20/img_eo-cache.svg
 ---
 
 ## 腾讯云EdgeOne缓存配置全解析：加速网站的秘密武器

@@ -42,8 +42,8 @@ caption: 博客后台独立页面添加入口
         }
     }
 </script>
-<link rel="stylesheet" href="https://cdn.xnet.ren/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css">
-<script src="https://cdn.xnet.ren/gh/willow-god/Friend-Circle-Lite/main/fclite.min.js"></script>
+<link rel="stylesheet" href="https://fastjs.qixz.cn/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css">
+<script src="https://fastjs.qixz.cn/gh/willow-god/Friend-Circle-Lite/main/fclite.min.js"></script>
 ```
 ### 前端效果预览
 ::pic

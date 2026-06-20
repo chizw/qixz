@@ -5,7 +5,7 @@ type: tech
 categories: [技术干货]
 tags: [源码, 免费]
 description: 云梦次元ICP备案系统是一个模仿萌国ICP备案系统的开源免费源码，用于搭建个人ICP备案系统。提供安装教程、定制教程（包括前端和后台管理定制）、数据库结构说明及版权信息。系统遵循Apache2开源协议，包含Thinkphp5.1框架。
-image: https://pic.wudu.ltd/pic/2025/10/12/68eaf2c4d971a.png
+image: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf2c4d971a.png
 ---
 
 {cloud title="云梦次元ICP备案系统" type="lanzou" url="https://scfc.lanzout.com/iRNvZ311dlqb" password=""/}
@@ -16,7 +16,7 @@ image: https://pic.wudu.ltd/pic/2025/10/12/68eaf2c4d971a.png
 ## 源码介绍
 ::pic
 ---
-src: https://pic.wudu.ltd/pic/2025/10/12/68eaf2c4d971a.png
+src: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf2c4d971a.png
 caption: 云梦次元ICP备案系统介绍图
 ---
 ::

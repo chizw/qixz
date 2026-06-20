@@ -194,7 +194,7 @@ references:
 
 **直接使用示例**：
 ```
-https://jsd.xnet.ren/gh/scfcn/owo/.json/twikoo-emoji.json
+https://owo.qixz.cn/.json/twikoo-emoji.json
 ```
 ::
 
