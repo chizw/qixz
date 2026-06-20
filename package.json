@@ -1,13 +1,13 @@
 {
   "name": "clarity",
   "type": "module",
-  "version": "3.6.4-fix-1",
+  "version": "3.6.5",
   "private": true,
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.8.0",
   "homepage": "https://github.com/scfcn/blog-v3",
   "engines": {
     "node": ">=22.15 <25",
-    "pnpm": ">=10"
+    "pnpm": ">=11"
   },
   "scripts": {
     "prepare": "pnpm clean && pnpm build:packages",
