@@ -6,8 +6,8 @@ const basicConfig = {
 	// 长 description 利好于 SEO
 	description: '青序栈：代码与远方交汇的小站。这里记录网站部署的实战经验、技术学习的点滴思考，也分享旅途中的风景与感悟。欢迎驻足，交换故事。',
 	author: {
-		name: '新尘网络-筱序二十',
-		avatar: 'https://www.qixz.cn/avatar.avif',
+		name: '筱序二十',
+		avatar: '/avatar.avif',
 		email: 'qxbk@qq.com',
 		homepage: 'https://me.qixz.cn/',
 	},
@@ -16,7 +16,7 @@ const basicConfig = {
 		name: '署名-非商业性使用-相同方式共享 4.0 国际',
 		url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans',
 	},
-	favicon: 'https://www.qixz.cn/favicon.svg',
+	favicon: '/favicon.svg',
 	language: 'zh-CN',
 	timeEstablished: '2024-07-18',
 	timezone: 'Asia/Shanghai',
