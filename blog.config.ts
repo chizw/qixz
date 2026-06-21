@@ -6,7 +6,7 @@ const basicConfig = {
 	// 长 description 利好于 SEO
 	description: '青序栈：代码与远方交汇的小站。这里记录网站部署的实战经验、技术学习的点滴思考，也分享旅途中的风景与感悟。欢迎驻足，交换故事。',
 	author: {
-		name: '筱序二十',
+		name: '新尘网络-筱序二十',
 		avatar: 'https://www.qixz.cn/avatar.avif',
 		email: 'qxbk@qq.com',
 		homepage: 'https://me.qixz.cn/',

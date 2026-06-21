@@ -4,7 +4,6 @@
 .nuxt
 .nitro
 .cache
-zhilu-3.7.0
 dist
 
 # Node dependencies

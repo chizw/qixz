@@ -5,6 +5,7 @@ import path from 'node:path'
 
 // 直接导入feeds.ts模块
 import feedGroups from '../app/feeds'
+import blogConfig from '../blog.config'
 
 // 调试信息已移除
 
@@ -86,8 +87,28 @@ export function generateFcircleJson() {
 
 // 直接运行时执行
 // 使用更可靠的方式检查是否直接运行脚本
+function generateIndexNowKeyFile() {
+	if (!blogConfig.indexNow.enable || !blogConfig.indexNow.key)
+		return
+
+	const currentFileUrl = new URL(import.meta.url)
+	const currentFilePath = currentFileUrl.protocol === 'file:'
+		? decodeURIComponent(currentFileUrl.pathname).replace(/^\/(.:\/)/, '$1')
+		: currentFileUrl.pathname
+
+	const __dirname = path.dirname(currentFilePath)
+	const publicDir = path.resolve(__dirname, '../public')
+	if (!fs.existsSync(publicDir))
+		fs.mkdirSync(publicDir, { recursive: true })
+
+	const outputPath = path.resolve(publicDir, `${blogConfig.indexNow.key}.txt`)
+	fs.writeFileSync(outputPath, blogConfig.indexNow.key, 'utf-8')
+	console.log(`成功生成IndexNow验证文件: ${outputPath}`)
+}
+
 if (process.argv[1]?.endsWith('generate-friend.ts')) {
 	console.log('开始执行generateFcircleJson函数')
 	generateFcircleJson()
+	generateIndexNowKeyFile()
 	console.log('generateFcircleJson函数执行完毕')
 }

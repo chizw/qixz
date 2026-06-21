@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-<menu>
+<div class="icon-nav-list">
 	<UtilLink
 		v-for="{ text, icon, url } in list"
 		:key="text"
@@ -17,11 +17,11 @@ defineProps<{
 	>
 		<Icon :name="icon" />
 	</UtilLink>
-</menu>
+</div>
 </template>
 
 <style lang="scss" scoped>
-menu {
+.icon-nav-list {
 	display: flex;
 	justify-content: center;
 

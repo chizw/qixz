@@ -137,7 +137,7 @@ const getCategoryCount = computed(() => (category: string) => {
 		</div>
 	</div>
 </div>
-<PostComment key="/equipment" />
+<PostComment key="/equipment" path="/equipment" />
 </template>
 
 <style lang="scss" scoped>

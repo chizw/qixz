@@ -24,12 +24,7 @@ function setTocAndMeta() {
 setTocAndMeta()
 
 if (post.value) {
-	useSeoMeta({
-		title: post.value.title,
-		ogType: 'article',
-		ogImage: post.value.image,
-		description: post.value.description,
-	})
+	useArticleSeo(post.value)
 	layoutStore.setAside(post.value.meta?.aside as WidgetName[] | undefined)
 }
 else if (!pending.value) {
@@ -57,7 +52,7 @@ if (import.meta.dev) {
 
 	<PostFooter v-bind="post" />
 	<PostSurround />
-	<PostComment />
+	<PostComment :path="route.path" />
 </template>
 
 <template v-else-if="pending">

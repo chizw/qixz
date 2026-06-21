@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { sort } from 'radash'
 
-const appConfig = useAppConfig()
-useSeoMeta({
-	description: appConfig.description,
-	ogImage: appConfig.author.avatar,
-})
+useHomeSeo()
 
 const layoutStore = useLayoutStore()
 layoutStore.setAside(['blog-stats', 'blog-tech', 'comm-group', 'welcome-visitor'])

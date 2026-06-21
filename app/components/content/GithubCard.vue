@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
 	owner: string
 	repo: string
 	url: string
@@ -43,8 +43,8 @@ function formatNumber(num: number | undefined): string {
 	display: block;
 	padding: 1rem;
 	border-radius: 0.6rem;
-	background: var(--c-bg-2);
 	box-shadow: 0 2px 0.5rem var(--ld-shadow);
+	background: var(--c-bg-2);
 	text-decoration: none;
 	transition: all 0.2s;
 
@@ -68,22 +68,22 @@ function formatNumber(num: number | undefined): string {
 
 .repo-name {
 	overflow: hidden;
-	font-weight: 600;
 	font-size: 0.9rem;
-	text-overflow: ellipsis;
+	font-weight: 600;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 	color: var(--c-text-1);
 }
 
 .description {
+	display: -webkit-box;
+	overflow: hidden;
 	margin: 0.5rem 0 0;
 	font-size: 0.85rem;
+	-webkit-line-clamp: 2;
 	line-height: 1.5;
 	color: var(--c-text-2);
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	overflow: hidden;
 }
 
 .stats {

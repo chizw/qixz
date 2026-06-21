@@ -4,7 +4,8 @@ const layoutStore = useLayoutStore()
 const searchStore = useSearchStore()
 const show = computed(() => layoutStore.isOpen('sidebar'))
 
-const { word } = storeToRefs(searchStore)
+const { text } = useTextSelection()
+const debouncedSelection = refDebounced(text)
 </script>
 
 <template>
@@ -20,8 +21,8 @@ const { word } = storeToRefs(searchStore)
 
 	<nav class="sidebar-nav scrollcheck-y">
 		<div class="search-btn sidebar-nav-item gradient-card" @click="layoutStore.toggle('search')">
-			<Icon name="ph:magnifying-glass-bold" />
-			<span class="nav-text">{{ word || '搜索' }}</span>
+			<Icon name="tabler:search" />
+			<span class="nav-text">{{ debouncedSelection || searchStore.word || '搜索' }}</span>
 			<Key class="keycut" code="K" cmd prevent @press="searchStore.toggle()" />
 		</div>
 

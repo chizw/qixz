@@ -5,6 +5,10 @@ const props = defineProps<{
 	show?: boolean
 }>()
 
+defineEmits<{
+	close: []
+}>()
+
 const appConfig = useAppConfig()
 const segmenter = Intl.Segmenter && new Intl.Segmenter(appConfig.language, { granularity: 'word' })
 
@@ -26,17 +30,17 @@ const miniSearch = new MiniSearch({
 		boost: { title: 3, titles: 2 },
 	},
 	processTerm: segmenter
-		? term => Array.from(segmenter.segment(term)).map(seg => seg.segment.toLowerCase())
+		? term => Array.from(segmenter.segment(term), seg => seg.segment.toLowerCase())
 		: undefined,
 })
 
 const searchStore = useSearchStore()
 const searchInput = ref<HTMLInputElement>()
 
-const { word } = storeToRefs(searchStore)
+const { word, debouncedWord } = storeToRefs(searchStore)
 const result = computed(() => {
 	void data.value
-	return miniSearch.search(word.value)
+	return miniSearch.search(debouncedWord.value)
 })
 
 const isKeyboardMode = ref(false)
@@ -53,16 +57,18 @@ watch(status, (newStatus) => {
 	}
 })
 
-watch(word, () => {
+watch(debouncedWord, () => {
 	activeIndex.value = 0
 })
 
 useEventListener('mousemove', () => isKeyboardMode.value = false)
 useEventListener('keydown', () => isKeyboardMode.value = true)
 
-async function focusInput() {
+async function focusInput(allSelect = false) {
 	await nextTick()
 	searchInput.value?.focus()
+	if (allSelect)
+		searchInput.value?.select()
 }
 
 function updateActiveIndex(index: number, isKeyboard = false) {
@@ -93,7 +99,8 @@ function openActiveItem() {
 <Transition name="float-in">
 	<div v-if="show" class="blog-search">
 		<form class="input" @submit.prevent>
-			<Icon :name="status === 'pending' ? 'line-md:loading-alt-loop' : 'ph:magnifying-glass-bold'" />
+			<Icon v-show="false" name="line-md:loading-alt-loop" />
+			<Icon :name="status === 'pending' ? 'line-md:loading-alt-loop' : 'tabler:search'" />
 
 			<!-- 方向键切换搜索结果不应只在搜索框内触发 -->
 			<input
@@ -109,7 +116,7 @@ function openActiveItem() {
 		</form>
 
 		<TransitionGroup name="expand">
-			<div v-if="word && status === 'success' && !result.length" class="no-result">
+			<div v-if="debouncedWord && status === 'success' && !result.length" class="no-result">
 				无结果
 			</div>
 
@@ -134,7 +141,7 @@ function openActiveItem() {
 				切换&emsp;
 				<Key code="Enter" icon @press="openActiveItem" />
 				选择&emsp;
-				<Key code="Escape" :icon="false" @press="searchStore.toggle()" />
+				<Key code="Escape" :icon="false" @press="$emit('close')" />
 				关闭
 			</div>
 		</TransitionGroup>
@@ -155,10 +162,9 @@ function openActiveItem() {
 	margin: auto;
 	border: 1px solid var(--c-primary);
 	border-radius: 1em;
-	box-shadow: 0 0.5em 1em var(--ld-shadow);
+	box-shadow: var(--box-shadow-2), var(--box-shadow-3);
 	outline: 0.2em solid var(--c-primary-soft);
 	background-color: var(--ld-bg-card);
-	transition: all var(--delay);
 	z-index: var(--z-index-popover);
 }
 

@@ -3,11 +3,9 @@
   "type": "module",
   "version": "0.2.1",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -22,5 +20,9 @@
     "@zinkawaii/tsconfig": "catalog:framework",
     "tsdown": "catalog:framework",
     "typescript": "catalog:framework"
+  },
+  "inlinedDependencies": {
+    "@types/mdast": "4.0.4",
+    "@types/unist": "3.0.3"
   }
 }

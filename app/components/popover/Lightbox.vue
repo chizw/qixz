@@ -19,6 +19,10 @@ const emit = defineEmits<{
 	close: []
 }>()
 
+// 优先使用图片原始尺寸，HTML 属性 width/height 缺失时为 0，会导致 srcset 'w' 描述符无效
+const lightboxWidth = computed(() => props.el?.naturalWidth || props.el?.width || 1200)
+const lightboxHeight = computed(() => props.el?.naturalHeight || props.el?.height || 800)
+
 const originRect = computed(() => props.el?.getBoundingClientRect() || { width: 0, height: 0, left: 0, top: 0, right: 0, bottom: 0, x: 0, y: 0 })
 const rate = 0.8
 
@@ -181,8 +185,8 @@ useEventListener('keydown', (e) => {
 		class="image"
 		:style="{ zIndex, ...style }"
 		:alt="el.alt"
-		:width="el.width"
-		:height="el.height"
+		:width="lightboxWidth"
+		:height="lightboxHeight"
 		:src="el.src"
 		draggable="false"
 		@wheel.prevent="onWheel"
@@ -227,6 +231,7 @@ useEventListener('keydown', (e) => {
 	display: flex;
 	align-items: center;
 	position: fixed;
+	inset-inline: 0;
 	bottom: clamp(2rem, 10vh, 5rem);
 	width: fit-content;
 	max-width: min(40rem, 80%);
@@ -238,7 +243,6 @@ useEventListener('keydown', (e) => {
 	backdrop-filter: blur(1rem) saturate(2);
 	color: white;
 	transition: all var(--delay);
-	inset-inline: 0;
 	z-index: var(--z-index-popover);
 
 	&.v-enter-from,

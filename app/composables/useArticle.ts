@@ -2,6 +2,7 @@ import type ArticleProps from '~/types/article'
 import type { ArticleOrderType } from '~/types/article'
 import { alphabetical } from 'radash'
 import { useRouteQuery } from '~/composables/useRouteQuery'
+import { isSeoPublicPostQuery } from '~/utils/seo'
 
 /**
  * 生成文章查询参数，完全包装 useAsyncData 会使 SSR 行为异常，缓存 key 需要暴露
@@ -12,8 +13,9 @@ import { useRouteQuery } from '~/composables/useRouteQuery'
 export function useArticleIndexOptions(path = 'posts/%') {
 	return queryCollection('content')
 		.where('stem', 'LIKE', path)
-		.select('categories', 'date', 'description', 'tags', 'image', 'path', 'readingTime', 'recommend', 'title', 'type', 'updated')
+		.select('categories', 'date', 'description', 'draft', 'tags', 'image', 'path', 'readingTime', 'recommend', 'title', 'type', 'updated')
 		.all()
+		.then(posts => isSeoPublicPostQuery(path) ? posts.filter(post => !post.draft) : posts)
 }
 
 interface UseCategoryOptions {

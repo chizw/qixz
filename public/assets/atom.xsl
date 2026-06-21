@@ -46,6 +46,9 @@
 				<xsl:value-of select="atom:feed/atom:rights" />
 				<br />
 				由 <xsl:value-of select="atom:feed/atom:generator" /> 生成
+				<br />
+				<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em" />滇ICP备2026003487号</a>
+				<a href="https://beian.mps.gov.cn/#/query/webSearch?code=53310302000158" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em" />滇公网安备53310302000158号</a>
 			</footer>
 		</body>
 

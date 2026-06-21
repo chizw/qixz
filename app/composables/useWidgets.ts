@@ -1,3 +1,4 @@
+import { pascal } from 'radash'
 import {
 	LazyWidgetBlogLog,
 	LazyWidgetBlogStats,
@@ -8,7 +9,6 @@ import {
 	LazyWidgetToc,
 	LazyWidgetWelcomeVisitor,
 } from '#components'
-import { pascal } from 'radash'
 
 const rawWidgets = {
 	LazyWidgetBlogLog,

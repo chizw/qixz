@@ -48,7 +48,7 @@ export default defineAppConfig({
 		/** 页脚版权信息，支持 <br> 换行等 HTML 标签 */
 		copyright: {
 			prefix: `© ${new Date().getFullYear()} ${blogConfig.author.name}`,
-			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">滇ICP备2026003487号</a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=53310302000158" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇公网安备53310302000158号</a>`,
+			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇ICP备2026003487号</a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=53310302000158" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇公网安备53310302000158号</a>`,
 		},
 		/** 侧边栏底部图标导航 */
 		iconNav: [

@@ -1,22 +1,26 @@
 import type { FeedEntry, FeedGroup } from '~/types/feed'
-import { XMLBuilder } from 'fast-xml-parser'
+import XmlBuilder from 'fast-xml-builder'
 import blogConfig, { myFeed } from '~~/blog.config'
 import feeds from '~/feeds'
 
 const runtimeConfig = useRuntimeConfig()
 
-const builder = new XMLBuilder({
+const builder = new XmlBuilder({
 	attributeNamePrefix: '$',
 	format: true,
 	ignoreAttributes: false,
 })
+
+function formatIsoDate(date: string) {
+	return new Date(date).toISOString()
+}
 
 function mapEntry(item: FeedEntry) {
 	return {
 		$text: item.title || item.sitenick || item.author,
 		$type: 'rss',
 		$xmlUrl: item.feed,
-		$created: new Date(item.date).toISOString(),
+		$created: formatIsoDate(item.date),
 		$description: item.desc,
 		$htmlUrl: item.link || item.feed,
 	}
@@ -37,7 +41,7 @@ export default defineEventHandler(async (_e) => {
 		$version: '2.0',
 		head: {
 			title: `${blogConfig.title}的友链订阅`,
-			dateCreated: new Date(blogConfig.timeEstablished).toISOString(),
+			dateCreated: formatIsoDate(blogConfig.timeEstablished),
 			dateModified: runtimeConfig.public.buildTime,
 			ownerName: blogConfig.author.name,
 			ownerEmail: blogConfig.author.email,

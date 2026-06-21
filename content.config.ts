@@ -1,8 +1,8 @@
 import { defineCollection, z } from '@nuxt/content'
-import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+import { defineSitemapSchema } from '@nuxtjs/sitemap/content'
 import blogConfig from './blog.config'
 
-const articleTypes = Object.keys(blogConfig.article.types)
+const articleTypes = Object.keys(blogConfig.article.types) as [string, ...string[]]
 
 const articleSchema = z.object({
 	title: z.string(),
@@ -28,12 +28,22 @@ const articleSchema = z.object({
 		time: z.number(),
 		words: z.number(),
 	}),
+	sitemap: defineSitemapSchema({
+		z,
+		name: 'content',
+		filter: entry => !entry.draft && entry.path !== '/preview' && !entry.path?.startsWith('/previews/'),
+		onUrl: (url, entry) => {
+			url.lastmod = entry.updated || entry.date
+			url.changefreq = 'weekly'
+			url.priority = entry.path === '/' ? 1 : 0.7
+		},
+	}),
 })
 
 export const collections = {
-	content: defineCollection(asSitemapCollection({
+	content: defineCollection({
 		source: '**',
 		type: 'page',
 		schema: articleSchema,
-	})),
+	}),
 }

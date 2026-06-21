@@ -2,6 +2,7 @@ import type { NitroConfig } from 'nitropack'
 import { arch, env, version as nodeVersion, platform } from 'node:process'
 import { name as ciName, CLOUDFLARE_PAGES, GITHUB_ACTIONS, NETLIFY } from 'ci-info'
 import { pascal } from 'radash'
+import { isSeoIndexablePath } from './app/utils/seo'
 import blogConfig from './blog.config'
 import packageJson from './package.json'
 import redirectList from './redirects.json'
@@ -120,6 +121,29 @@ export default defineNuxtConfig({
 				},
 			},
 		},
+		optimizeDeps: {
+			include: [
+				'@shikijs/colorized-brackets',
+				'@shikijs/transformers',
+				'@unhead/schema-org/vue',
+				'@vue/devtools-core',
+				'@vue/devtools-kit',
+				'date-fns',
+				'date-fns-tz',
+				'embla-carousel-autoplay',
+				'embla-carousel-vue',
+				'embla-carousel-wheel-gestures',
+				'parse-domain',
+				'radash',
+				'shiki/core',
+				'shiki/engine-javascript.mjs',
+				'shiki/engine-oniguruma.mjs',
+				'shiki/themes/catppuccin-latte.mjs',
+				'shiki/themes/one-dark-pro.mjs',
+				'vue-tippy',
+				'vue-virtual-scroller',
+			],
+		},
 		define: {
 			/** 在生产环境启用 Vue DevTools */
 			// __VUE_PROD_DEVTOOLS__: 'true',
@@ -196,10 +220,14 @@ ${packageJson.homepage}
 			}
 
 			// 通知 IndexNow
-			if (blogConfig.indexNow.enable && blogConfig.indexNow.key && ctx.content.path) {
+			if (blogConfig.indexNow.enable && blogConfig.indexNow.key && ctx.content.path && isSeoIndexablePath(ctx.content.path as string, ctx.content.draft as boolean)) {
 				try {
 					const url = new URL(ctx.content.path as string, blogConfig.url).href
 					const articleDate = new Date(ctx.content.updated as string || ctx.content.date as string)
+					if (Number.isNaN(articleDate.getTime())) {
+						console.info(`IndexNow: ${url} has no valid date, skipping`)
+						return
+					}
 					const daysSinceUpdate = (Date.now() - articleDate.getTime()) / (1000 * 60 * 60 * 24)
 
 					if (daysSinceUpdate > 30) {

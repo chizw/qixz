@@ -1,8 +1,10 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
-useSeoMeta({
+useSiteSeo({
 	title: '预览',
 	description: `${appConfig.title}的文章预览。`,
+	path: '/preview',
+	indexable: false,
 })
 const layoutStore = useLayoutStore()
 layoutStore.setAside(['blog-log'])
@@ -30,13 +32,13 @@ const { category, categories, listCategorized } = useCategory(listSorted)
 	<p>勇敢的人探索世界。这里是一些还未发布的文章。</p>
 
 	<menu class="proper-height">
-		<PostArticle
-			v-for="article in listCategorized"
-			:key="article.path"
-			v-bind="article"
-			:to="article.path"
-			:use-updated="sortOrder === 'updated'"
-		/>
+		<li v-for="article in listCategorized" :key="article.path" class="preview-item">
+			<PostArticle
+				v-bind="article"
+				:to="article.path"
+				:use-updated="sortOrder === 'updated'"
+			/>
+		</li>
 	</menu>
 </div>
 </template>
@@ -54,5 +56,9 @@ const { category, categories, listCategorized } = useCategory(listSorted)
 	h1 {
 		mask-image: linear-gradient(#FFF, transparent);
 	}
+}
+
+.preview-item {
+	list-style: none;
 }
 </style>

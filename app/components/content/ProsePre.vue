@@ -53,10 +53,8 @@ function getIndent() {
 }
 
 onMounted(async () => {
-	const debugStart = performance.now()
 	const shiki = await shikiStore.load()
 	await shikiStore.loadLang(props.language)
-	const debugLoaded = performance.now()
 	// 处理 Markdown 高亮内代码块中的语言
 	// 加载 TeX 语言有概率导致 LaTeX 语言高亮炸掉
 	if (props.language === 'markdown' || props.language.startsWith('md')) {
@@ -76,15 +74,6 @@ onMounted(async () => {
 			{ meta: { indent: getIndent() } },
 		),
 	)
-	const debugHighlighted = performance.now()
-	// #region debug-point A:render-styles
-	requestAnimationFrame(() => {
-		const pre = codeblock.value
-		const line = pre?.querySelector('.line') as HTMLElement | null
-		const before = line ? getComputedStyle(line, '::before') : null
-		void fetch('http://127.0.0.1:7777/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: 'codeblock-rendering', runId: 'post-fix', hypothesisId: 'A', location: 'app/components/content/ProsePre.vue:55', msg: '[DEBUG] render-styles', data: { language: props.language, rows: rows.value, codeLength: props.code.length, rawHtmlLength: rawHtml.value.length, lineCount: pre?.querySelectorAll('.line').length, spanCount: pre?.querySelectorAll('span').length, loadMs: Math.round(debugLoaded - debugStart), highlightMs: Math.round(debugHighlighted - debugLoaded), rafMs: Math.round(performance.now() - debugHighlighted), totalMs: Math.round(performance.now() - debugStart), preClass: pre?.className, preBg: pre ? getComputedStyle(pre).backgroundColor : null, prePaddingInlineStart: pre ? getComputedStyle(pre).paddingInlineStart : null, preOverflow: pre ? getComputedStyle(pre).overflow : null, lineClass: line?.className, lineBg: line ? getComputedStyle(line).backgroundColor : null, lineDisplay: line ? getComputedStyle(line).display : null, lineBeforeContent: before?.content, lineBeforePosition: before?.position, lineBeforeBg: before?.backgroundColor, lineBeforeWidth: before?.width, lineBeforeColor: before?.color, lineBeforeLeft: before?.left, lineBeforeInsetInlineStart: before?.insetInlineStart }, ts: Date.now() }) }).catch(() => {})
-	})
-	// #endregion
 })
 </script>
 

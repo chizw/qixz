@@ -19,6 +19,9 @@
 /mps.png
   Cache-Control: public, max-age=604800
 
+/beian.webp
+  Cache-Control: public, max-age=604800
+
 # 经常更新的 Feed、OPML、预渲染 API，不缓存
 /atom.xml
   Cache-Control: public, max-age=0, must-revalidate

@@ -1,24 +1,121 @@
 <script setup lang="ts">
+const props = withDefaults(defineProps<{
+	path?: string
+	title?: string
+	placeholder?: string
+}>(), {
+	title: '评论区',
+})
+
 const appConfig = useAppConfig()
+const route = useRoute()
+
+const status = ref<'loading' | 'ready' | 'error'>('loading')
+const errorMessage = ref('')
+const normalizedPath = computed(() => props.path || route.path)
+const commentId = computed(() => `twikoo-${normalizedPath.value.replace(/[^\w-]/g, '-').replace(/^-+|-+$/g, '') || 'root'}`)
+
+const COMMENT_FALLBACK_IMG = 'https://s3.qixz.cn/ywty/2026/06/20/6a366d2bcda01.webp'
+
+let retryTimer: ReturnType<typeof setTimeout> | undefined
+let imgObserver: MutationObserver | undefined
+
+function bindCommentImageFallback(container: HTMLElement) {
+	const images = container.querySelectorAll('img')
+	images.forEach((img) => {
+		if (img.dataset.fallbackBound)
+			return
+		img.dataset.fallbackBound = '1'
+		img.addEventListener('error', () => {
+			if (img.src !== COMMENT_FALLBACK_IMG)
+				img.src = COMMENT_FALLBACK_IMG
+		}, { once: true })
+	})
+}
+
+function observeCommentImages(container: HTMLElement) {
+	bindCommentImageFallback(container)
+	imgObserver = new MutationObserver((mutations) => {
+		for (const mutation of mutations) {
+			for (const node of mutation.addedNodes) {
+				if (node instanceof HTMLElement)
+					bindCommentImageFallback(node)
+			}
+		}
+	})
+	imgObserver.observe(container, { childList: true, subtree: true })
+}
+
+async function initTwikoo(retry = 0) {
+	if (!import.meta.client)
+		return
+
+	status.value = 'loading'
+	errorMessage.value = ''
+
+	const envId = appConfig.twikoo?.envId
+	if (!envId) {
+		status.value = 'error'
+		errorMessage.value = '评论服务配置不可用，请稍后再试。'
+		return
+	}
+
+	if (!window.twikoo?.init) {
+		if (retry < 20) {
+			retryTimer = setTimeout(initTwikoo, 300, retry + 1)
+			return
+		}
+
+		status.value = 'error'
+		errorMessage.value = '评论资源加载失败，请刷新页面重试。'
+		return
+	}
+
+	try {
+		await nextTick()
+		await window.twikoo.init({
+			envId,
+			el: `#${commentId.value}`,
+			path: normalizedPath.value,
+		})
+		status.value = 'ready'
+		const host = document.getElementById(commentId.value)
+		if (host)
+			observeCommentImages(host)
+	}
+	catch {
+		status.value = 'error'
+		errorMessage.value = '评论区初始化失败，请稍后再试。'
+	}
+}
 
 onMounted(() => {
-	window.twikoo?.init({
-		envId: appConfig.twikoo?.envId,
-		el: '#twikoo',
-	})
+	initTwikoo()
+})
+
+onBeforeUnmount(() => {
+	if (retryTimer)
+		clearTimeout(retryTimer)
+	if (imgObserver)
+		imgObserver.disconnect()
 })
 </script>
 
 <template>
-<section class="z-comment">
+<section id="twikoo" class="z-comment">
 	<h3 class="text-creative">
-		评论区
+		{{ props.title }}
 	</h3>
-	<div id="twikoo">
-		<div class="comment-loading">
+	<div class="comment-panel">
+		<div v-if="status === 'loading'" class="comment-state">
 			<div class="loading-spinner" />
 			<p>评论加载中...</p>
 		</div>
+		<div v-else-if="status === 'error'" class="comment-state is-error">
+			<Icon name="solar:confounded-square-bold-duotone" />
+			<p>{{ errorMessage }}</p>
+		</div>
+		<div :id="commentId" class="twikoo-host" :data-placeholder="placeholder" />
 	</div>
 </section>
 </template>
@@ -27,6 +124,7 @@ onMounted(() => {
 .z-comment {
 	margin: 2rem auto;
 	padding: 0 1rem;
+	scroll-margin-top: 5rem;
 
 	> h3 {
 		margin-top: 3rem;
@@ -34,15 +132,34 @@ onMounted(() => {
 	}
 }
 
-.comment-loading {
+.comment-panel {
+	position: relative;
+	margin-top: 1rem;
+	padding: 1rem;
+	border: 2px solid var(--c-border);
+	border-radius: 1rem;
+	box-shadow: 2px 4px 0.5em var(--ld-shadow);
+	background: var(--c-bg);
+}
+
+.comment-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
 	padding: 2rem;
 	text-align: center;
 	color: var(--c-text-2);
 
+	.icon {
+		font-size: 2rem;
+		color: var(--c-primary);
+	}
+
 	.loading-spinner {
 		width: 40px;
 		height: 40px;
-		margin: 0 auto 1rem;
 		border: 3px solid var(--c-bg-3);
 		border-top-color: var(--c-primary);
 		border-radius: 50%;
@@ -50,9 +167,19 @@ onMounted(() => {
 	}
 
 	p { font-size: 0.9rem; }
+
+	&.is-error {
+		border: 1px dashed var(--c-border);
+		border-radius: 0.75rem;
+		background: var(--c-bg-2);
+	}
 }
 
-:deep(#twikoo) {
+.twikoo-host {
+	min-height: 2rem;
+}
+
+:deep(.twikoo-host) {
 	.tk-admin-container {
 		position: fixed;
 		z-index: 1;
@@ -61,7 +188,6 @@ onMounted(() => {
 	.tk-avatar {
 		overflow: hidden;
 		border-radius: 50%;
-		corner-shape: superellipse(1.2);
 		box-shadow: 2px 4px 0.5em var(--ld-shadow);
 		background-color: white;
 	}
@@ -69,6 +195,7 @@ onMounted(() => {
 	.tk-submit {
 		display: flex;
 		flex-direction: column;
+		padding: 0.25rem 0 1rem;
 
 		.tk-avatar,
 		a.tk-submit-action-icon.__markdown { display: none; }
@@ -76,7 +203,9 @@ onMounted(() => {
 		.tk-preview-container { margin: 0 0 0.5rem; }
 
 		.tk-row.actions {
+			align-items: center;
 			justify-content: flex-end;
+			gap: 0.5rem;
 			order: 3;
 			margin: 0 0 0.5rem;
 		}
@@ -230,18 +359,75 @@ onMounted(() => {
 		font-family: var(--font-creative);
 	}
 
+	.tk-comments-title {
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--c-border);
+	}
+
+	.tk-comment {
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--c-border);
+
+		&:last-child { border-bottom: none; }
+	}
+
 	.tk-replies:not(.tk-replies-expand) {
 		mask-image: linear-gradient(#FFF 50%, transparent);
 	}
 
-	.tk-expand {
-		padding: 0.375rem 1rem;
-		border-radius: 0.5rem;
-		background-color: var(--c-bg-2);
+	.tk-expand,
+	.tk-collapse,
+	.tk-load-more,
+	.tk-comments-more,
+	[class*="expand"],
+	[class*="more"] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.35rem;
+		min-height: 2.25rem;
+		margin: 0.35rem auto;
+		padding: 0.4rem 1rem;
+		border: 1px solid var(--c-border);
+		border-radius: 999px;
+		box-shadow: 1px 2px 0.35em var(--ld-shadow);
+		background: var(--c-bg-2);
+		font-size: 0.85rem;
+		line-height: 1.2;
 		color: var(--c-text-1);
-		transition: background-color 0.1s;
+		transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s, transform 0.2s;
+		cursor: pointer;
 
-		&:hover { background-color: var(--c-bg-3); }
+		&::after {
+			content: "";
+			width: 0.45em;
+			height: 0.45em;
+			border-right: 2px solid currentcolor;
+			border-bottom: 2px solid currentcolor;
+			transform: translateY(-0.1em) rotate(45deg);
+			transition: transform 0.2s;
+		}
+
+		&:hover {
+			border-color: var(--c-primary);
+			box-shadow: 2px 4px 0.5em var(--ld-shadow);
+			background: var(--c-bg-3);
+			color: var(--c-primary);
+			transform: translateY(-1px);
+		}
+
+		&:active {
+			box-shadow: 1px 2px 0.25em var(--ld-shadow);
+			transform: translateY(0);
+		}
+	}
+
+	.tk-replies-expand + .tk-expand,
+	.tk-replies-expand ~ .tk-expand,
+	[class*="collapse"] {
+		&::after {
+			transform: translateY(0.1em) rotate(225deg);
+		}
 	}
 
 	.tk-nick-link { color: var(--c-primary); }
@@ -287,6 +473,32 @@ onMounted(() => {
 	.tk-extras, .tk-footer {
 		font-size: 0.7rem;
 		color: var(--c-text-3);
+	}
+}
+
+@media (max-width: 720px) {
+	.z-comment {
+		padding: 0 0.75rem;
+	}
+
+	.comment-panel {
+		padding: 0.75rem;
+		border-radius: 0.875rem;
+	}
+
+	:deep(.twikoo-host) {
+		.tk-submit .tk-meta-input .el-input-group {
+			&::before, &::after { content: none; }
+		}
+
+		.tk-comment {
+			padding: 0.875rem 0;
+		}
+
+		.tk-avatar {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
 	}
 }
 

@@ -16,6 +16,7 @@ export default interface ArticleProps extends Partial<{
 	updated: string
 	published: string
 	categories: string[]
+	draft: boolean
 	tags: string[]
 	type: 'tech' | 'story'
 	image: string

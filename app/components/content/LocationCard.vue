@@ -46,13 +46,13 @@ const mapUrl = computed(() => {
 	gap: 0.75rem;
 	padding: 0.75rem 1rem;
 	border-radius: 0.6rem;
-	background: var(--c-bg-2);
 	box-shadow: 0 2px 0.5rem var(--ld-shadow);
+	background: var(--c-bg-2);
 }
 
 .icon {
-	flex-shrink: 0;
 	display: flex;
+	flex-shrink: 0;
 	align-items: center;
 	justify-content: center;
 	width: 2.5rem;
@@ -70,10 +70,10 @@ const mapUrl = computed(() => {
 
 .name {
 	overflow: hidden;
-	font-weight: 600;
 	font-size: 0.9rem;
-	text-overflow: ellipsis;
+	font-weight: 600;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 	color: var(--c-text-1);
 }
 
@@ -81,14 +81,14 @@ const mapUrl = computed(() => {
 	overflow: hidden;
 	margin-top: 0.2rem;
 	font-size: 0.8rem;
-	text-overflow: ellipsis;
 	white-space: nowrap;
+	text-overflow: ellipsis;
 	color: var(--c-text-3);
 }
 
 .map-link {
-	flex-shrink: 0;
 	display: flex;
+	flex-shrink: 0;
 	align-items: center;
 	justify-content: center;
 	padding: 0.4rem;

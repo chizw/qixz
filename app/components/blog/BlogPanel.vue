@@ -42,6 +42,7 @@ useEventListener('keydown', (e) => {
 	position: fixed;
 	overflow: hidden;
 	overflow: clip;
+	inset-inline-end: min(1rem, 5%);
 	bottom: min(2rem, 5%);
 	border-radius: 0.5rem;
 	background-color: var(--c-bg-a50);
@@ -49,7 +50,6 @@ useEventListener('keydown', (e) => {
 	font-size: 1.4rem;
 	transition: transform 0.1s;
 	z-index: var(--z-index-popover);
-	inset-inline-end: min(1rem, 5%);
 
 	@media (max-height: $breakpoint-phone) {
 		display: flex;

@@ -42,15 +42,16 @@ function renderContent(post: ContentCollectionItem) {
 export default defineEventHandler(async (event) => {
 	const posts = await queryCollection(event, 'content')
 		.where('stem', 'LIKE', 'posts/%')
-		.order('updated', 'DESC')
+		.order('date', 'DESC')
 		.limit(blogConfig.feed.limit)
 		.all()
+		.then(items => items.filter(post => !post.draft))
 
 	const entries = posts.map(post => ({
 		id: getUrl(post.path),
 		title: post.title ?? '',
 		updated: formatIsoDate(post.updated),
-		author: { name: post.author || blogConfig.author.name },
+		author: { name: blogConfig.author.name },
 		content: {
 			$type: 'html',
 			$: renderContent(post),
@@ -58,7 +59,7 @@ export default defineEventHandler(async (event) => {
 		link: { $href: getUrl(post.path) },
 		summary: post.description,
 		category: { $term: post.categories?.[0] },
-		published: formatIsoDate(post.published ?? post.date),
+		published: formatIsoDate(post.date),
 	}))
 
 	const feed = {
@@ -66,4 +67,32 @@ export default defineEventHandler(async (event) => {
 		id: blogConfig.url,
 		title: blogConfig.title,
 		updated: runtimeConfig.public.buildTime,
-		description: blogConfig.description, // RSS
+		description: blogConfig.description, // RSS 2.0
+		author: {
+			name: blogConfig.author.name,
+			email: blogConfig.author.email,
+			uri: blogConfig.author.homepage,
+		},
+		link: [
+			{ $href: getUrl('atom.xml'), $rel: 'self' },
+			{ $href: blogConfig.url, $rel: 'alternate' },
+		],
+		language: blogConfig.language, // RSS 2.0
+		generator: {
+			$uri: 'https://github.com/L33Z22L11/blog-v3',
+			$version: packageJson.version,
+			_: pascal(packageJson.name),
+		},
+		icon: blogConfig.favicon,
+		logo: blogConfig.author.avatar, // Ratio should be 2:1
+		rights: `© ${new Date().getFullYear()} ${blogConfig.author.name}`,
+		subtitle: blogConfig.subtitle || blogConfig.description,
+		entry: entries,
+	}
+
+	return builder.build({
+		'?xml': { $version: '1.0', $encoding: 'UTF-8' },
+		'?xml-stylesheet': blogConfig.feed.enableStyle ? { $type: 'text/xsl', $href: '/assets/atom.xsl' } : undefined,
+		feed,
+	})
+})

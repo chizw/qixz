@@ -24,8 +24,10 @@ const PartialServiceStatus = createLazyComponent(() => import('~/components/part
 	</nav>
 	<div class="footer-bottom">
 		<p>
-			<span v-html="appConfig.footer.copyright.prefix" />
-			<PartialServiceStatus />
+			<span class="copyright-prefix">
+				<span v-html="appConfig.footer.copyright.prefix" />
+				<PartialServiceStatus />
+			</span>
 			<br>
 			<span v-html="appConfig.footer.copyright.suffix" />
 		</p>
@@ -69,6 +71,11 @@ const PartialServiceStatus = createLazyComponent(() => import('~/components/part
 
 	p {
 		margin: 0.5em;
+	}
+
+	.copyright-prefix {
+		display: inline-flex;
+		align-items: center;
 	}
 
 	.footer-bottom {
