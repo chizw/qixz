@@ -1,15 +1,14 @@
 // 一部分具有卡片样式的组件复用了此类
 .card {
+	contain: paint;
 	display: block;
-	overflow: hidden;
-	overflow: clip;
 	border-radius: 0.5em;
-	box-shadow: 0 0.1em 0.2em var(--ld-shadow);
+	box-shadow: var(--box-shadow-1);
 	background-color: var(--ld-bg-card);
 	transition: all 0.2s;
 
-	&:hover {
-		box-shadow: 0 0.5em 1em var(--ld-shadow);
+	&.upraise:hover {
+		box-shadow: var(--box-shadow-3);
 		transform: translateY(-2px);
 	}
 }
@@ -40,6 +39,17 @@
 	}
 }
 
+.scrollbar-hidden.scrollbar-hidden {
+	--scrollbar-height: 0px;
+	--guessed-scrollbar-width: 0px;
+
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
 // 横向滚动遮罩
 // PURE CSS MAGIC!
 .scrollcheck-x, .scrollcheck-y {
@@ -61,8 +71,8 @@
 
 .scrollcheck-x {
 	--start-offset: 0px; // 如果填写 0 会在 calc() 时出错
-	--scrollbar-height: 0.5rem;
-	--fadeout-width: 2rem;
+	--scrollbar-height: 8px;
+	--fadeout-width: 2em;
 
 	overflow-x: auto;
 	animation: scrollcheck-x;
@@ -92,8 +102,8 @@
 .scrollcheck-y {
 	// 如果填写 0 会在 calc() 时出错
 	--top-offset: 0px;
-	--guessed-scrollbar-width: 0.5rem;
-	--fadeout-height: 2rem;
+	--guessed-scrollbar-width: 8px;
+	--fadeout-height: 2em;
 
 	overflow-y: auto;
 	animation: scrollcheck-y;
@@ -120,18 +130,16 @@
 	}
 }
 
-// 生成响应式可见性类
-$visibility-rules: (
-	only: min-width,
-	hidden: max-width,
-);
-
 @each $name, $size in $breakpoints {
-	@each $suffix, $direction in $visibility-rules {
-		@media (#{$direction}: #{$size}) {
-			.#{$name}-#{$suffix} {
-				display: none !important; /* stylelint-disable-line declaration-no-important */
-			}
+	@media not (max-width: $size) {
+		.#{$name}-only {
+			display: none !important; /* stylelint-disable-line declaration-no-important */
+		}
+	}
+
+	@media (max-width: $size) {
+		.#{$name}-hidden {
+			display: none !important; /* stylelint-disable-line declaration-no-important */
 		}
 	}
 }
@@ -151,6 +159,7 @@ $visibility-rules: (
 .text-creative, .text-tech {
 	font-family: var(--font-creative);
 	font-weight: 550;
+	-webkit-font-smoothing: antialiased; // macOS下"DOUYINSANSBOLD-GB"过粗
 }
 
 .text-story {

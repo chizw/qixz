@@ -20,9 +20,9 @@ export default defineNuxtConfig({
 				{ rel: 'icon', href: blogConfig.favicon },
 				{ rel: 'alternate', type: 'application/atom+xml', href: '/atom.xml' },
 				{ rel: 'preconnect', href: blogConfig.twikoo.preload },
-				{ rel: 'stylesheet', href: 'https://cdn.jsdmirror.com/npm/katex@0.16.28/dist/katex.min.css', media: 'print', onload: 'this.media="all"' },
+				{ rel: 'stylesheet', href: 'https://fastjs.qixz.cn/npm/katex@0.16.28/dist/katex.min.css', media: 'print', onload: 'this.media="all"' },
 				// "霞鹜文楷" 字体
-				{ rel: 'stylesheet', href: 'https://cdn.jsdmirror.com/gh/scfcn/Sharding-fonts@main/LXGWWenKai-Regular/result.css', media: 'print', onload: 'this.media="all"' },
+				{ rel: 'stylesheet', href: 'https://fastjs.qixz.cn/gh/scfcn/Sharding-fonts@main/LXGWWenKai-Regular/result.css', media: 'print', onload: 'this.media="all"' },
 				// "JetBrains Mono", 思源黑体 "Noto Sans SC", 思源宋体 "Noto Serif SC"
 				{ rel: 'preconnect', href: 'https://fonts.gstatic.cn', crossorigin: '' },
 				{ rel: 'stylesheet', href: 'https://fonts.googleapis.cn/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans+SC:wght@100..900&family=Noto+Serif+SC:wght@200..900&display=swap', media: 'print', onload: 'this.media="all"' },

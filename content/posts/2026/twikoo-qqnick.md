@@ -24,7 +24,7 @@ Twikoo使用QQ号码获取用户昵称时，需要调用青桔大佬的API接口
 
 ### 步骤一：定位配置文件
 
-::tip[推荐使用 jsdmirror CDN 节点在国内访问较快]{tip="国内推荐 jsdmirror 或 fastjs.qixz.cn"}
+::tip[推荐使用 Star CDN 节点在国内访问较快]{tip="国内推荐 jsdmirror 或 fastjs.qixz.cn"}
 
 找到官方的`twikoo.min.js`文件，这里给出几个URL：
 

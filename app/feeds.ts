@@ -453,7 +453,7 @@ export default [
 				date: '2024-12-09',
 				comment: '2025 年持续更新，站长为高中生。内容涵盖实用技术教程（宝塔专业版申请、免费图床搭建、AI 绘画、刷课脚本），也分享澎湃 OS 使用体验、CSGO 游戏日常，干货与生活记录兼具，性价比高。',
 			},
-		   {
+			{
 				author: 'BiuXin',
 				sitenick: '与光',
 				title: 'BiuXin',

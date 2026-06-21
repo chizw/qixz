@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getShikiOptions } from '~/shiki.config'
+
 const props = defineProps<{
 	language?: string
 	code: string
@@ -15,14 +17,14 @@ onMounted(async () => {
 
 	rawHtml.value = shiki.codeToHtml(
 		props.code,
-		shikiStore.getOptions(props.language, ['ignoreColorizedBrackets']),
+		getShikiOptions(props.language, ['ignoreColorizedBrackets']),
 	)
 })
 </script>
 
 <template>
 <code v-if="language" class="shiki" v-html="rawHtml" />
-<code v-else><slot /></code>
+<code v-else><slot>{{ code }}</slot></code>
 </template>
 
 <style lang="scss" scoped>
@@ -32,7 +34,7 @@ code {
 	border: 1px solid var(--c-border);
 	border-radius: 4px;
 	background-color: var(--c-bg-2);
-	font-size: 0.8125em;
+	font-size: 0.85em;
 	white-space: break-spaces;
 
 	@supports (color: color-mix(in srgb, transparent, transparent)) {

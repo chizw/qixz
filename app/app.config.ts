@@ -26,9 +26,7 @@ export default defineAppConfig({
 			/** 代码块缩进导航(Indent Guige)竖线匹配空格数 */
 			indent: 4,
 			/** tab渲染宽度 */
-			tabSize: 3,
-			/** 显示代码块行号 */
-			showLineNumbers: true,
+			tabSize: 7,
 		},
 
 		/** 文章开头摘要 */
@@ -56,14 +54,14 @@ export default defineAppConfig({
 			{ icon: 'ri:qq-line', text: '交流群: 665751334', url: 'https://qm.qq.com/q/veCtZrS51e' },
 			{ icon: 'ph:github-logo-bold', text: 'GitHub: scfcn', url: 'https://github.com/scfcn' },
 			{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-			{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/plain.html' },
+			{ icon: 'ri:subway-line', text: '开往', url: 'https://www.travellings.cn/plain.html' },
 		] satisfies NavItem[],
 		/** 页脚站点地图 */
 		nav: [
 			{
 				title: '探索',
 				items: [
-					{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/plain.html' },
+					{ icon: 'ri:subway-line', text: '开往', url: 'https://www.travellings.cn/plain.html' },
 					{ icon: 'ph:bug-droid-bold', text: '揪蝉', url: 'https://www.jiuchan.org/' },
 					{ icon: 'streamline-ultimate-color:blogger-logo', text: 'BlogsClub', url: 'https://www.blogsclub.org/' },
 					{ icon: 'logos:blogger', text: '笔墨迹', url: 'https://blogscn.fun/' },
@@ -75,7 +73,7 @@ export default defineAppConfig({
 					{ icon: 'ph:github-logo-bold', text: 'scfcn', url: 'https://github.com/scfcn' },
 					{ icon: 'ri:qq-line', text: '群: 665751334', url: 'https://qm.qq.com/q/veCtZrS51e' },
 					{ icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
-					{ icon: 'ph:telegram-logo-bold', text: 'TG群组', url: 'https://t.me/qxzhan' },
+					{ icon: 'ph:house-bold', text: '筱栈主页', url: 'https://me.qixz.cn/' },
 				],
 			},
 			{

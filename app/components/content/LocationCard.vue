@@ -8,7 +8,8 @@ const props = defineProps<{
 }>()
 
 const mapUrl = computed(() => {
-	if (props.url) return props.url
+	if (props.url)
+		return props.url
 	if (props.latitude && props.longitude) {
 		return `https://www.openstreetmap.org/?mlat=${props.latitude}&mlon=${props.longitude}#map=15/${props.latitude}/${props.longitude}`
 	}
@@ -25,8 +26,12 @@ const mapUrl = computed(() => {
 		<Icon name="ph:map-pin-bold" />
 	</div>
 	<div class="info">
-		<div class="name">{{ name }}</div>
-		<div v-if="address" class="address">{{ address }}</div>
+		<div class="name">
+			{{ name }}
+		</div>
+		<div v-if="address" class="address">
+			{{ address }}
+		</div>
 	</div>
 	<a v-if="mapUrl" :href="mapUrl" target="_blank" rel="noopener" class="map-link">
 		<Icon name="ph:arrow-square-out-bold" />
