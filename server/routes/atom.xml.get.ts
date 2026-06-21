@@ -1,13 +1,13 @@
 import type { ContentCollectionItem } from '@nuxt/content'
 import { toDate } from 'date-fns-tz'
-import { XMLBuilder } from 'fast-xml-parser'
+import XmlBuilder from 'fast-xml-builder'
 import { pascal } from 'radash'
 import blogConfig from '~~/blog.config'
 import packageJson from '~~/package.json'
 
 const runtimeConfig = useRuntimeConfig()
 
-const builder = new XMLBuilder({
+const builder = new XmlBuilder({
 	attributeNamePrefix: '$',
 	cdataPropName: '$',
 	format: true,
@@ -16,8 +16,15 @@ const builder = new XMLBuilder({
 })
 
 function formatIsoDate(date?: string) {
-	const datetime = toDate(date || '', { timeZone: blogConfig.timezone })
-	return Number.isNaN(datetime.getTime()) ? datetime.toString() : datetime.toISOString()
+	if (!date)
+		return
+	try {
+		return toDate(date, { timeZone: blogConfig.timezone }).toISOString()
+	}
+	catch {
+		console.error('Invalid date format', date)
+		return date
+	}
 }
 
 function getUrl(path: string | undefined) {
@@ -35,11 +42,10 @@ function renderContent(post: ContentCollectionItem) {
 export default defineEventHandler(async (event) => {
 	const posts = await queryCollection(event, 'content')
 		.where('stem', 'LIKE', 'posts/%')
-		.order('date', 'DESC')
+		.order('updated', 'DESC')
 		.limit(blogConfig.feed.limit)
 		.all()
 
-	// @ts-expect-error posts 暂无类型
 	const entries = posts.map(post => ({
 		id: getUrl(post.path),
 		title: post.title ?? '',
@@ -60,32 +66,4 @@ export default defineEventHandler(async (event) => {
 		id: blogConfig.url,
 		title: blogConfig.title,
 		updated: runtimeConfig.public.buildTime,
-		description: blogConfig.description, // RSS 2.0
-		author: {
-			name: blogConfig.author.name,
-			email: blogConfig.author.email,
-			uri: blogConfig.author.homepage,
-		},
-		link: [
-			{ $href: getUrl('atom.xml'), $rel: 'self' },
-			{ $href: blogConfig.url, $rel: 'alternate' },
-		],
-		language: blogConfig.language, // RSS 2.0
-		generator: {
-			$uri: 'https://github.com/L33Z22L11/blog-v3',
-			$version: packageJson.version,
-			_: pascal(packageJson.name),
-		},
-		icon: blogConfig.favicon,
-		logo: blogConfig.author.avatar, // Ratio should be 2:1
-		rights: `© ${new Date().getFullYear()} ${blogConfig.author.name}`,
-		subtitle: blogConfig.subtitle || blogConfig.description,
-		entry: entries,
-	}
-
-	return builder.build({
-		'?xml': { $version: '1.0', $encoding: 'UTF-8' },
-		'?xml-stylesheet': blogConfig.feed.enableStyle ? { $type: 'text/xsl', $href: '/assets/atom.xsl' } : undefined,
-		feed,
-	})
-})
+		description: blogConfig.description, // RSS

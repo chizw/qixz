@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getShikiOptions } from '~/shiki.config'
-
 const props = defineProps<{
 	language?: string
 	code: string
@@ -17,7 +15,7 @@ onMounted(async () => {
 
 	rawHtml.value = shiki.codeToHtml(
 		props.code,
-		getShikiOptions(props.language, ['ignoreColorizedBrackets']),
+		shikiStore.getOptions(props.language, ['ignoreColorizedBrackets']),
 	)
 })
 </script>
@@ -34,7 +32,7 @@ code {
 	border: 1px solid var(--c-border);
 	border-radius: 4px;
 	background-color: var(--c-bg-2);
-	font-size: 0.85em;
+	font-size: 0.8125em;
 	white-space: break-spaces;
 
 	@supports (color: color-mix(in srgb, transparent, transparent)) {

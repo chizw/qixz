@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createPlainShiki } from 'plain-shiki'
-import { getShikiOptions } from '~/shiki.config'
 
 const props = withDefaults(defineProps<{
 	prompt?: string | boolean
@@ -29,7 +28,7 @@ function undo() {
 	showUndo.value = false
 }
 
-function preventLineBreak(event: InputEvent) {
+function prevenLineBreak(event: InputEvent) {
 	const { data, inputType } = event
 	if (data?.includes('\n') || inputType === 'insertLineBreak') {
 		event.preventDefault()
@@ -46,7 +45,7 @@ onMounted(async () => {
 
 	createPlainShiki(shiki).mount(
 		codeInput.value!,
-		getShikiOptions(language.value),
+		shikiStore.getOptions(language.value),
 	)
 })
 </script>
@@ -60,27 +59,25 @@ onMounted(async () => {
 		contenteditable="plaintext-only"
 		class="code scrollcheck-x"
 		spellcheck="false"
-		@beforeinput="preventLineBreak"
+		@beforeinput="prevenLineBreak"
 		@input="checkUndoable"
 		v-text="code"
 	/>
 
 	<button v-if="showUndo" class="operation" aria-label="恢复原始内容" @click="undo">
-		<Icon name="tabler:arrow-back-up" />
+		<Icon name="ph:arrow-u-up-left-bold" />
 	</button>
 
-	<Icon v-show="false" name="tabler:check" />
 	<button class="operation" aria-label="复制" @click="copy()">
-		<Icon :name="copied ? 'tabler:check' : 'tabler:copy'" />
+		<Icon :name="copied ? 'ph:check-bold' : 'ph:copy-bold'" />
 	</button>
 </code>
 </template>
 
 <style lang="scss" scoped>
 .copy {
-	contain: paint;
 	display: flex;
-	overflow: auto; // prompt 溢出时滚动
+	overflow: clip;
 	margin: 0.5rem 0;
 	border: 1px solid var(--c-border);
 	border-radius: 4px;
@@ -114,7 +111,8 @@ onMounted(async () => {
 		--scrollbar-height: 4px;
 
 		flex-grow: 1;
-		overflow: auto;
+		position: relative;
+		overflow-x: auto;
 		padding: 0 1em;
 		outline: none;
 		white-space: nowrap;

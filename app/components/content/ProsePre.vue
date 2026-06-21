@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { getShikiOptions } from '~/shiki.config'
-
 const props = withDefaults(defineProps<{
 	code?: string
 	language?: string
 	filename?: string
-	/** @deprecated Use `transformerNotationHighlight` instead */
 	highlights?: number[]
 	meta?: string
 	class?: string
@@ -37,6 +34,7 @@ const [isCollapsed, toggleCollapsed] = useToggle(collapsible.value)
 const icon = computed(() => meta.value.icon || getFileIcon(props.filename) || getLangIcon(props.language))
 const isWrap = ref(meta.value.wrap)
 const byteSize = computed(() => formatBytes(new TextEncoder().encode(props.code).length))
+const preClass = computed(() => props.class?.split(' ').filter(className => !className.startsWith('language-')).join(' '))
 
 const codeblock = useTemplateRef('codeblock')
 const { copy, copied } = useCopy(codeblock)
@@ -55,26 +53,38 @@ function getIndent() {
 }
 
 onMounted(async () => {
+	const debugStart = performance.now()
 	const shiki = await shikiStore.load()
 	await shikiStore.loadLang(props.language)
+	const debugLoaded = performance.now()
 	// 处理 Markdown 高亮内代码块中的语言
 	// 加载 TeX 语言有概率导致 LaTeX 语言高亮炸掉
 	if (props.language === 'markdown' || props.language.startsWith('md')) {
 		const mdLangRegex = /^\s*`{3,}(\S+)/gm
 		const langs = Array
-			.from(props.code.matchAll(mdLangRegex), match => match[1])
+			.from(props.code.matchAll(mdLangRegex))
+			.map(match => match[1])
 			.filter(lang => lang !== undefined)
 		await shikiStore.loadLang(...langs)
 	}
 
 	rawHtml.value = shiki.codeToHtml(
 		props.code.trimEnd(),
-		getShikiOptions(
+		shikiStore.getOptions(
 			props.language,
 			[compConf.value.enableIndentGuide ? 'ignoreRenderWhitespace' : 'ignoreRenderIndentGuides'],
 			{ meta: { indent: getIndent() } },
 		),
 	)
+	const debugHighlighted = performance.now()
+	// #region debug-point A:render-styles
+	requestAnimationFrame(() => {
+		const pre = codeblock.value
+		const line = pre?.querySelector('.line') as HTMLElement | null
+		const before = line ? getComputedStyle(line, '::before') : null
+		void fetch('http://127.0.0.1:7777/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: 'codeblock-rendering', runId: 'post-fix', hypothesisId: 'A', location: 'app/components/content/ProsePre.vue:55', msg: '[DEBUG] render-styles', data: { language: props.language, rows: rows.value, codeLength: props.code.length, rawHtmlLength: rawHtml.value.length, lineCount: pre?.querySelectorAll('.line').length, spanCount: pre?.querySelectorAll('span').length, loadMs: Math.round(debugLoaded - debugStart), highlightMs: Math.round(debugHighlighted - debugLoaded), rafMs: Math.round(performance.now() - debugHighlighted), totalMs: Math.round(performance.now() - debugStart), preClass: pre?.className, preBg: pre ? getComputedStyle(pre).backgroundColor : null, prePaddingInlineStart: pre ? getComputedStyle(pre).paddingInlineStart : null, preOverflow: pre ? getComputedStyle(pre).overflow : null, lineClass: line?.className, lineBg: line ? getComputedStyle(line).backgroundColor : null, lineDisplay: line ? getComputedStyle(line).display : null, lineBeforeContent: before?.content, lineBeforePosition: before?.position, lineBeforeBg: before?.backgroundColor, lineBeforeWidth: before?.width, lineBeforeColor: before?.color, lineBeforeLeft: before?.left, lineBeforeInsetInlineStart: before?.insetInlineStart }, ts: Date.now() }) }).catch(() => {})
+	})
+	// #endregion
 })
 </script>
 
@@ -92,7 +102,6 @@ onMounted(async () => {
 			<Icon :name="icon" /> {{ filename }}
 		</span>
 		<span v-else />
-		<!-- 语言不采用绝对定位，因为和文件名占据互斥空间 -->
 		<span v-if="language" class="language">{{ language }}</span>
 		<div class="operations">
 			<button @click="isWrap = !isWrap">
@@ -104,11 +113,10 @@ onMounted(async () => {
 		</div>
 	</figcaption>
 
-	<!-- 嘿嘿，不要换行 -->
 	<pre
 		ref="codeblock"
 		class="shiki scrollcheck-x"
-		:class="[props.class, { wrap: isWrap }]"
+		:class="[preClass, { wrap: isWrap }]"
 		v-html="rawHtml"
 	/>
 
@@ -200,7 +208,6 @@ figcaption {
 }
 
 pre {
-	// 如果填写 0 会在 calc() 时出错
 	--start-offset: 4em;
 
 	padding: 1rem;
@@ -262,7 +269,6 @@ pre {
 		}
 	}
 
-	// 行指示器
 	&::before {
 		content: var(--line-indicator, "") attr(data-line);
 		position: fixed;
@@ -283,7 +289,7 @@ pre {
 
 .toggle-btn {
 	display: block;
-	position: relative; // 移动到 pre 上方
+	position: relative;
 	opacity: 0.3;
 	width: 100%;
 	padding: 0.2em;

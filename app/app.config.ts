@@ -26,7 +26,9 @@ export default defineAppConfig({
 			/** 代码块缩进导航(Indent Guige)竖线匹配空格数 */
 			indent: 4,
 			/** tab渲染宽度 */
-			tabSize: 7,
+			tabSize: 3,
+			/** 显示代码块行号 */
+			showLineNumbers: true,
 		},
 
 		/** 文章开头摘要 */

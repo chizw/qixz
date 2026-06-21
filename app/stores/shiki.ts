@@ -1,15 +1,56 @@
-import type { BundledLanguage, HighlighterCore, RegexEngine } from 'shiki'
+import type { BundledLanguage, CodeToHastOptions, HighlighterCore, RegexEngine } from 'shiki'
+import { transformerColorizedBrackets } from '@shikijs/colorized-brackets'
+import { transformerNotationDiff, transformerNotationErrorLevel, transformerNotationFocus, transformerNotationHighlight, transformerNotationWordHighlight, transformerRenderIndentGuides, transformerRenderWhitespace } from '@shikijs/transformers'
 
 let promise: Promise<HighlighterCore>
 let shiki: HighlighterCore
 
+type CustomTransformerOptions = Array<
+	| 'ignoreColorizedBrackets'
+	| 'ignoreRenderWhitespace'
+	| 'ignoreRenderIndentGuides'
+>
+
+type ShikiOptions = CodeToHastOptions<BundledLanguage, string>
+
 export const useShikiStore = defineStore('shiki', () => {
-	const options = {
+	const getOptions = (
+		lang: string,
+		transformerOptions?: CustomTransformerOptions,
+		extraShikiOptions?: Omit<ShikiOptions, 'lang'>,
+	): ShikiOptions => ({
+		lang,
 		themes: {
 			light: 'catppuccin-latte',
 			dark: 'one-dark-pro',
 		},
-	}
+		transformers: [
+			transformerNotationDiff(),
+			transformerNotationHighlight(),
+			transformerNotationWordHighlight(),
+			transformerNotationFocus(),
+			transformerNotationErrorLevel(),
+			transformerOptions?.includes('ignoreRenderIndentGuides') || ['ansi', 'log', 'text'].includes(lang)
+				? {}
+				: transformerRenderIndentGuides(),
+			transformerOptions?.includes('ignoreRenderWhitespace') || ['ansi', 'log', 'text'].includes(lang)
+				? {}
+				: transformerRenderWhitespace(),
+			transformerOptions?.includes('ignoreColorizedBrackets')
+				? {}
+				: transformerColorizedBrackets(),
+			{
+				root: hast => ({
+					type: 'root',
+					children: (hast.children[0] as any).children[0].children,
+				}),
+				line(node, line) {
+					node.properties['data-line'] = line
+				},
+			},
+		],
+		...extraShikiOptions,
+	})
 
 	async function load() {
 		promise ??= loadShiki()
@@ -59,7 +100,7 @@ export const useShikiStore = defineStore('shiki', () => {
 	}
 
 	return {
-		options,
+		getOptions,
 		load,
 		loadLang,
 	}
