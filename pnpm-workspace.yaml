@@ -76,7 +76,7 @@ allowBuilds:
   rolldown: true
   sharp: true
   unrs-resolver: true
-  vue-demi: set this to true or false
+  vue-demi: true
 
 patchedDependencies:
   '@nuxtjs/mdc': patches/@nuxtjs__mdc.patch
