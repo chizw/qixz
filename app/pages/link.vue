@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { myFeed } from '~~/blog.config'
 import feeds from '~/feeds'
+import type { FeedGroup } from '~/types/feed'
+import type { FriendStatusData } from '~/utils/friend-status'
 
 const appConfig = useAppConfig()
 const layoutStore = useLayoutStore()
@@ -10,6 +12,12 @@ const { data: postLink } = await useAsyncData(
 	'/link',
 	() => queryCollection('content').path('/link').first(),
 )
+
+const { data: friendStatusData } = await useFetch<FriendStatusData>('https://fc.qixz.cn/link.json', {
+	key: 'friend-status',
+})
+
+const feedGroups = computed<FeedGroup[]>(() => withFriendStatuses(feeds, friendStatusData.value))
 
 useSeoMeta({
 	title: '友链：收集了添加他为友链的网站和他订阅的网站列表',
@@ -32,7 +40,7 @@ const copyFields = {
 </div>
 
 <FeedGroup
-	v-for="group in feeds"
+	v-for="group in feedGroups"
 	:key="group.name"
 	v-bind="group"
 	:shuffle="appConfig.link.randomInGroup"

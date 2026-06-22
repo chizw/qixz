@@ -9,6 +9,8 @@ export interface FeedEntry {
 	desc?: string
 	/** 博客地址 */
 	link: string
+	/** 友链页地址 */
+	linkpage?: string
 	/** 订阅源 */
 	feed?: string
 	/** 站点小图标 */
@@ -21,6 +23,8 @@ export interface FeedEntry {
 	date: string
 	/** 博主备注 */
 	comment?: string
+	reachable?: boolean
+	latency?: number
 	/** 错误信息 */
 	error?: string
 }

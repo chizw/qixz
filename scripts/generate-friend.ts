@@ -14,6 +14,7 @@ export interface Friend {
 	title: string
 	desc: string
 	link: string
+	linkpage?: string
 	avatar: string
 }
 
@@ -22,6 +23,7 @@ interface FeedEntry {
 	sitenick?: string
 	title?: string
 	link: string
+	linkpage?: string
 	avatar: string
 	error?: string
 }
@@ -61,9 +63,9 @@ export function generateFcircleJson() {
 							console.log(`跳过黑名单站点: ${siteName}`)
 							return null
 						}
-						return [siteName, entry.link, entry.avatar]
+					return [siteName, entry.link, entry.linkpage ?? '', entry.avatar]
 					})
-					.filter(Boolean) as [string, string, string][],
+					.filter(Boolean) as [string, string, string, string][],
 			)
 
 		// 确保public目录存在并写入文件

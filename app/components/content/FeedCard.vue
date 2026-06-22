@@ -11,6 +11,40 @@ const isInspect = computed(() => import.meta.dev && route.query.inspect !== unde
 const title = computed(() => props.title ?? props.sitenick ?? props.author)
 const domainTip = computed(() => getDomainType(getMainDomain(props.link, true)))
 const domainIcon = computed(() => getDomainIcon(props.link))
+const latencyMs = computed(() => props.latency === undefined ? undefined : Math.round(props.latency * 1000))
+const latencySeconds = computed(() => props.latency === undefined ? undefined : Math.round(props.latency * 10) / 10)
+const statusTone = computed(() => {
+	if (props.reachable === false || props.latency === undefined)
+		return 'offline'
+	if (props.latency > 3)
+		return 'slow'
+	if (props.latency > 1)
+		return 'medium'
+	return 'fast'
+})
+const statusLabel = computed(() => {
+	if (props.reachable === false)
+		return '离线'
+	if (props.reachable && latencyMs.value !== undefined && latencyMs.value >= 0) {
+		if (props.latency > 1)
+			return `${latencySeconds.value?.toFixed(1)} S`
+
+		return `${latencyMs.value} MS`
+	}
+})
+const statusTip = computed(() => {
+	if (props.reachable === false)
+		return '最近检测不可达'
+	if (statusLabel.value && latencyMs.value !== undefined) {
+		if (props.latency > 1)
+			return `最近检测可达，响应约 ${latencySeconds.value?.toFixed(1)} 秒`
+
+		return `最近检测可达，响应约 ${latencyMs.value} ms`
+	}
+})
+const statusStyle = computed<CSSProperties>(() => ({
+	'--friend-status-delay': 'calc(var(--delay) + 0.2s)',
+}))
 
 function getInspectStyle(src: string): CSSProperties {
 	src = getMainDomain(src)
@@ -53,6 +87,17 @@ function getInspectStyle(src: string): CSSProperties {
 
 		<span class="author">{{ author }}</span>
 		<span class="sitenick">{{ sitenick }}</span>
+		<span
+			v-if="statusLabel"
+			class="friend-status-tag"
+			:class="`friend-status-tag--${statusTone}`"
+			:title="statusTip"
+			:aria-label="statusTip"
+			:style="statusStyle"
+		>
+			<span class="friend-status-pulse" aria-hidden="true" />
+			{{ statusLabel }}
+		</span>
 	</UtilLink>
 
 	<template #content>
@@ -95,6 +140,7 @@ function getInspectStyle(src: string): CSSProperties {
 	display: flex;
 	align-items: center;
 	gap: 0.2em;
+	position: relative;
 	width: 14em;
 	margin: 1em auto;
 	padding: 0.5em;
@@ -144,6 +190,61 @@ function getInspectStyle(src: string): CSSProperties {
 	.no-feed {
 		opacity: 0.6;
 		font-size: 0.8em;
+	}
+
+	.friend-status-tag {
+		--friend-status-color: #16A34A;
+
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		position: absolute;
+		inset-block-start: -0.45em;
+		inset-inline-end: 0.45em;
+		padding: 0.1em 0.45em;
+		border: 1px solid color-mix(in srgb, var(--friend-status-color), transparent 55%);
+		border-radius: 999px;
+		box-shadow: 0 0.2em 0.8em color-mix(in srgb, var(--friend-status-color), transparent 75%);
+		background: color-mix(in srgb, var(--friend-status-color), var(--c-bg) 86%);
+		font-size: 0.65em;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		line-height: 1.4;
+		color: var(--friend-status-color);
+		animation: float-in 0.2s var(--friend-status-delay) backwards;
+	}
+
+	.friend-status-pulse {
+		flex: 0 0 auto;
+		position: relative;
+		width: 0.55em;
+		height: 0.55em;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 0.1em color-mix(in srgb, currentcolor, transparent 30%);
+		background: color-mix(in srgb, currentcolor, transparent 36%);
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0.08em;
+			border-radius: 50%;
+			background: currentcolor;
+		}
+	}
+
+	.friend-status-tag--offline {
+		--friend-status-color: #DC2626;
+
+		box-shadow: 0 0.2em 0.8em color-mix(in srgb, var(--friend-status-color), transparent 80%);
+		background: color-mix(in srgb, var(--friend-status-color), var(--c-bg) 88%);
+	}
+
+	.friend-status-tag--medium {
+		--friend-status-color: #2563EB;
+	}
+
+	.friend-status-tag--slow {
+		--friend-status-color: #EAB308;
 	}
 }
 
