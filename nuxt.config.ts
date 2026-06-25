@@ -275,8 +275,14 @@ ${packageJson.homepage}
 		provider: NETLIFY ? 'none' : undefined,
 		format: ['avif', 'webp', 'jpeg'],
 		quality: 80,
-		// 显式清空 screens，避免 NuxtImg 在缺少 width 时生成无效的 srcset '0w' 描述符
-		screens: {},
+		screens: {
+			xs: 320,
+			sm: 640,
+			md: 768,
+			lg: 1024,
+			xl: 1280,
+			xxl: 1536,
+		},
 	},
 
 	linkChecker: {

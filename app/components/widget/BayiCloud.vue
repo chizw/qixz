@@ -9,9 +9,10 @@ const BAYI_CLOUD_URL = 'https://um.qixz.cn/q/iPBg8UYFH'
 			稳定、高性价比的云服务提供商
 		</p>
 		<ul class="features">
+			<li>弹性云服务器</li>
 			<li>轻量应用服务器</li>
-			<li>高防 CDN 加速</li>
-			<li>域名注册 / SSL 证书</li>
+			<li>香港高防无黑洞秒解</li>
+			<li>站长资助计划</li>
 		</ul>
 		<UtilLink :to="BAYI_CLOUD_URL" class="cta" target="_blank">
 			<Icon name="ph:arrow-square-out-bold" />

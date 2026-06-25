@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { joinURL, withLeadingSlash, withTrailingSlash } from 'ufo'
+import ImageComponent from '#build/mdc-image-component.mjs'
 
 const props = withDefaults(defineProps<{
 	src: string
@@ -32,22 +33,36 @@ onMounted(() => {
 	referrerPolicy.value = props.mirror ? 'no-referrer' : undefined
 })
 
-function onError(e: Event) {
-	const img = e.target as HTMLImageElement
-	if (img.src !== FALLBACK_IMG)
-		img.src = FALLBACK_IMG
+function onError() {
+	if (refinedSrc.value !== FALLBACK_IMG)
+		refinedSrc.value = FALLBACK_IMG
 }
 </script>
 
 <template>
-<img
-	:src="refinedSrc"
+<!-- 优先使用图片原始尺寸，HTML 属性 width/height 缺失时为 0，会导致 srcset 'w' 描述符无效 -->
+<!-- 我们在这里通过组件提供 width/height，避免浏览器产生警告 -->
+<NuxtImg
+	v-if="!refinedSrc"
+	:src="FALLBACK_IMG"
 	:alt="alt"
-	:width="width"
-	:height="height"
+	:width="width || 1200"
+	:height="height || 800"
 	:loading="loading"
 	:fetchpriority="fetchpriority"
 	:referrerpolicy="referrerPolicy"
+/>
+<component
+	v-else
+	:is="ImageComponent"
+	:src="refinedSrc"
+	:alt="alt"
+	:width="width || 1200"
+	:height="height || 800"
+	:loading="loading"
+	:fetchpriority="fetchpriority"
+	:sizes="sizes"
+	:referrerpolicy="referrerPolicy"
 	@error="onError"
->
+/>
 </template>

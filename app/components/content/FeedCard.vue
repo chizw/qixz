@@ -33,7 +33,7 @@ const statusLabel = computed(() => {
 		if (props.latency !== undefined && props.latency > 1)
 			return `${latencySeconds.value?.toFixed(1)} S`
 
-		return `${latencyMs.value} MS`
+		return `${latencyMs.value} ms`
 	}
 })
 const statusTip = computed(() => {

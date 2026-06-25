@@ -97,10 +97,10 @@ const { copy, copied } = useCopy(href)
 							</div>
 							<p class="popover-desc">稳定可靠的高性价比云服务提供商</p>
 							<div class="popover-features">
-								<span><Icon name="ph:hard-drives-bold" /> 轻量服务器</span>
-								<span><Icon name="ph:shield-check-bold" /> 高防 CDN</span>
-								<span><Icon name="ph:globe-bold" /> 域名注册</span>
-								<span><Icon name="ph:lock-simple-bold" /> SSL 证书</span>
+								<span><Icon name="ph:hard-drives-bold" /> 弹性云服务器</span>
+								<span><Icon name="ph:cloud-bold" /> 轻量应用服务器</span>
+								<span><Icon name="ph:shield-check-bold" />香港高防黑洞秒解</span>
+								<span><Icon name="ph:hand-heart-bold" />站长资助计划</span>
 							</div>
 							<UtilLink class="popover-cta" :to="BAYI_CLOUD_URL" target="_blank">
 								立即了解
