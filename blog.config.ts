@@ -9,7 +9,7 @@ const basicConfig = {
 		name: '筱序二十',
 		avatar: 'https://www.qixz.cn/avatar.avif',
 		email: 'qxbk@qq.com',
-		homepage: 'https://me.qixz.cn/',
+		homepage: 'https://www.qixz.cn/',
 	},
 	copyright: {
 		abbr: 'CC BY-NC-SA 4.0',
@@ -85,7 +85,7 @@ const blogConfig = {
 	/** GitHub 仓库配置 */
 	github: {
 		/** 仓库地址 */
-		repo: 'scfcn/blog-v3',
+		repo: 'chizw/blog-v3',
 	},
 
 	/** Bing IndexNow 配置 */
