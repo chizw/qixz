@@ -54,7 +54,7 @@ export default defineAppConfig({
 		iconNav: [
 			{ icon: 'ph:house-bold', text: '个人主页', url: blogConfig.author.homepage },
 			{ icon: 'ri:qq-line', text: '交流群: 665751334', url: 'https://qm.qq.com/q/veCtZrS51e' },
-			{ icon: 'ph:github-logo-bold', text: 'GitHub: scfcn', url: 'https://github.com/scfcn' },
+			{ icon: 'ph:github-logo-bold', text: 'GitHub: chizw', url: 'https://github.com/chizw' },
 			{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
 			{ icon: 'ri:subway-line', text: '开往', url: 'https://www.travellings.cn/plain.html' },
 		] satisfies NavItem[],
