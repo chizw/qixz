@@ -72,7 +72,7 @@ export default defineAppConfig({
 			{
 				title: '社交',
 				items: [
-					{ icon: 'ph:github-logo-bold', text: 'scfcn', url: 'https://github.com/scfcn' },
+					{ icon: 'ph:github-logo-bold', text: 'chizw', url: 'https://github.com/chizw' },
 					{ icon: 'ri:qq-line', text: '群: 665751334', url: 'https://qm.qq.com/q/veCtZrS51e' },
 					{ icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
 					{ icon: 'fa:linux', text: 'LinuxDO', url: 'https://linux.do/u/qxzhan/summary' },
