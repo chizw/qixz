@@ -48,7 +48,7 @@ export default defineAppConfig({
 		/** 页脚版权信息，支持 <br> 换行等 HTML 标签 */
 		copyright: {
 			prefix: `© ${new Date().getFullYear()} 新尘汇网络-青序栈`,
-			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇ICP备2026017476号-2</a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">公网备案备案中</a>`,
+			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇ICP备2026017476号-2</a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=53011202001824" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇公网安备53011202001824号</a>`,
 		},
 		/** 侧边栏底部图标导航 */
 		iconNav: [

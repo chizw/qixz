@@ -23,8 +23,9 @@ function handleTabClick(category: string) {
 }
 
 function goComment(content: string) {
-	const input = document.querySelector('#twikoo .tk-input textarea')
-	if (!(input instanceof HTMLTextAreaElement))
+	// v2 的输入框为 <textarea class="tk-input__inner tk-textarea__inner">
+	const input = document.querySelector<HTMLTextAreaElement>('#comments .tk-textarea textarea')
+	if (!input)
 		return
 
 	if (content?.trim()) {

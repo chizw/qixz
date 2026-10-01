@@ -99,7 +99,8 @@ const blogConfig = {
 		// 自己部署的 Umami 统计服务
 		{ 'src': 'https://um.qixz.cn/script.js', 'data-website-id': '00f27ba3-8b4f-45b0-a227-3988578b39b3', 'defer': true },
 		// Twikoo 评论系统
-		{ src: 'https://fastjs.qixz.cn/npm/twikoo@latest/dist/twikoo.min.js', defer: true },
+		// 锁定大版本，避免 twikoo 发布新的大版本时样式再次错乱
+		{ src: 'https://fastjs.qixz.cn/npm/twikoo@2/dist/twikoo.min.js', defer: true },
 	],
 
 	/** 自己部署的 Twikoo 服务 */
