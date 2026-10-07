@@ -10,7 +10,7 @@ image: https://ywtypic.wuxit.cn/pic/2025/10/12/68eaf5354d4b8.png
 ---
 
 {cloud title="雾都虚拟备案" type="lanzou" url="https://scfc.lanzout.com/ipj47311kazg" password=""/}
-{cloud title="雾都虚拟备案" type="github" url="https://github.com/scfcn/wuicp" password=""/}
+{cloud title="雾都虚拟备案" type="github" url="https://github.com/chizw/wuicp" password=""/}
 
 ## 二开版本效果展示
 ::pic

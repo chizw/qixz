@@ -35,7 +35,7 @@ caption: 项目截图
 
 ### 3.1 步骤1：Fork项目仓库
 
-首先，访问我的[Rainyun-Qiandao仓库](https://github.com/scfcn/Rainyun-Qiandao/)，点击右上角的"Fork"按钮将项目Fork到你的GitHub账户，可以为Fork的仓库取一个好听的名字。
+首先，访问我的[Rainyun-Qiandao仓库](https://github.com/chizw/Rainyun-Qiandao/)，点击右上角的"Fork"按钮将项目Fork到你的GitHub账户，可以为Fork的仓库取一个好听的名字。
 
 ::alert{type="info"}
 如果觉得这个项目有用，不妨给我点个Star⭐，这是对我最大的鼓励！

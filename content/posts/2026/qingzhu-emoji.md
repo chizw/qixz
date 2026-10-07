@@ -11,7 +11,7 @@ references:
   - title: 柳神Gist
     link: https://gist.liushen.fun/all
   - title: 青竹君 表情包仓库
-    link: https://github.com/scfcn/owo
+    link: https://github.com/chizw/owo
     icon: https://github.githubassets.com/favicon.ico
 ---
 
@@ -156,7 +156,7 @@ references:
 
 ::tab{:tabs='["环境配置","配置与执行"]'}
 #tab1
-1. **克隆 owo 仓库**：`git clone https://github.com/scfcn/owo.git`
+1. **克隆 owo 仓库**：`git clone https://github.com/chizw/owo.git`
 2. **准备表情包**：将优化后的表情包放入指定目录
 3. **配置参数**：编辑 `generate-owo-artalk.py` 和 `generate-owo-twikoo.py` 文件，设置相关参数
 4. **执行脚本**：双击运行 `generate-owo-artalk.py` 和 `generate-owo-twikoo.py` 文件，生成引入文件
@@ -186,7 +186,7 @@ references:
 ### 7.1 青竹君表情包公开仓库的使用说明
 
 ::quote
-**仓库地址**：[青竹君表情包](https://github.com/scfcn/owo)
+**仓库地址**：[青竹君表情包](https://github.com/chizw/owo)
 
 **使用方法**：
 1. **Star 仓库**：点击仓库右上角的 Star 按钮，收藏项目
@@ -305,7 +305,7 @@ https://owo.qixz.cn/.json/twikoo-emoji.json
 ::quote
 特别感谢以下项目和资源的支持：
 
-1. **青竹君表情包仓库**（[Github](https://github.com/scfcn/owo)）：提供了完整的表情包管理和生成方案
+1. **青竹君表情包仓库**（[Github](https://github.com/chizw/owo)）：提供了完整的表情包管理和生成方案
 2. **柳神技术博客**（[blog.liushen.fun](https://blog.liushen.fun)）：提供了技术支持和指导
 3. **Gemini AI**：提供了强大的表情设计生成能力
 4. **美图秀秀**：提供了便捷的图片切割功能

@@ -48,7 +48,8 @@ export default defineAppConfig({
 		/** 页脚版权信息，支持 <br> 换行等 HTML 标签 */
 		copyright: {
 			prefix: `© ${new Date().getFullYear()} 新尘汇网络-青序栈`,
-			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇ICP备2026017476号-2</a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=53011202001824" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇公网安备53011202001824号</a>`,
+			suffix: `<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><img src="/beian.webp" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇ICP备2026017476号-2</a> 
+			<br><a href="https://beian.mps.gov.cn/#/query/webSearch?code=53011202001824" target="_blank" rel="noopener noreferrer"><img src="/mps.png" alt="" style="height:1em;vertical-align:middle;margin-right:0.3em">滇公网安备53011202001824号</a>`,
 		},
 		/** 侧边栏底部图标导航 */
 		iconNav: [
@@ -66,7 +67,7 @@ export default defineAppConfig({
 					{ icon: 'ri:subway-line', text: '开往', url: 'https://www.travellings.cn/plain.html' },
 					{ icon: 'ph:bug-droid-bold', text: '揪蝉', url: 'https://www.jiuchan.org/' },
 					{ icon: 'fa-solid:blog', text: 'BlogsClub', url: 'https://www.blogsclub.org/' },
-					{ icon: 'ph:cloud-bold', text: '八壹云', url: '/81x' },
+					{ icon: 'ph:cloud-bold', text: '八壹云', url: '/81x/' },
 				],
 			},
 			{
@@ -82,9 +83,9 @@ export default defineAppConfig({
 				title: '信息',
 				items: [
 					{ icon: 'simple-icons:nuxtdotjs', text: `主题: Clarity ${version}`, url: 'https://github.com/L33Z22L11/blog-v3' },
-					{ icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme' },
-					{ icon: 'ph:copyright-bold', text: '版权信息', url: '/copyright' },
-					{ icon: 'ph:file-text-bold', text: '隐私协议', url: '/privacy' },
+					{ icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme/' },
+					{ icon: 'ph:copyright-bold', text: '版权信息', url: '/copyright/' },
+					{ icon: 'ph:file-text-bold', text: '隐私协议', url: '/privacy/' },
 				],
 			},
 		] satisfies Nav,
@@ -115,12 +116,12 @@ export default defineAppConfig({
 			title: '',
 			items: [
 				{ icon: 'ph:files-bold', text: '文章', url: '/' },
-				{ icon: 'ph:archive-bold', text: '归档', url: '/archive' },
-				{ icon: 'ph:tag-bold', text: '标签', url: '/tags' },
-				{ icon: 'ph:link-bold', text: '友链', url: '/link' },
-				{ icon: 'ph:fish-bold', text: '鱼塘', url: '/fcircle' },
-				{ icon: 'ph:images-bold', text: '图驿', url: '/gallery' },
-				{ icon: 'ph:laptop-bold', text: '装备', url: '/devices' },
+				{ icon: 'ph:archive-bold', text: '归档', url: '/archive/' },
+				{ icon: 'ph:tag-bold', text: '标签', url: '/tags/' },
+				{ icon: 'ph:link-bold', text: '友链', url: '/link/' },
+				{ icon: 'ph:fish-bold', text: '鱼塘', url: '/fcircle/' },
+				{ icon: 'ph:images-bold', text: '图驿', url: '/gallery/' },
+				{ icon: 'ph:laptop-bold', text: '装备', url: '/devices/' },
 			],
 		},
 	] satisfies Nav,

@@ -193,7 +193,7 @@ caption: 项目截图
 ---
 icon: https://github.com/favicon.ico
 title: 域名信息展示页
-link: https://github.com/scfcn/domain-card
+link: https://github.com/chizw/domain-card
 ---
 ::
 
@@ -247,7 +247,7 @@ graph TD
 ---
 icon: https://github.com/favicon.ico
 title: WUICP
-link: https://github.com/scfcn/wuicp
+link: https://github.com/chizw/wuicp
 ---
 ::
 
@@ -305,7 +305,7 @@ python rainyun.py --config config.json
 ---
 icon: https://github.com/favicon.ico
 title: 雨云自动签到
-link: https://github.com/scfcn/Rainyun-Qiandao
+link: https://github.com/chizw/Rainyun-Qiandao
 ---
 ::
 **项目状态**：
@@ -470,8 +470,8 @@ description: 个人主页，展示我的技术项目和个人信息
 ::link-card
 ---
 icon: https://github.com/favicon.ico
-title: scfcn(筱序二十)
-link: https://github.com/scfcn
+title: chizw(筱序二十)
+link: https://github.com/chizw
 description: 我的 GitHub 主页，查看所有开源项目
 ---
 

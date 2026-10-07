@@ -72,7 +72,7 @@ getQQNick: function(e) {
 ---
 title: 修改后的 twwikoo.min.js (不含key)
 icon: https://github.com/favicon.ico
-link: https://gist.github.com/scfcn/b9de4cc9affcd47fdc30461e849a1992
+link: https://gist.github.com/chizw/b9de4cc9affcd47fdc30461e849a1992
 description: GitHub Gist 公开代码，点击查看完整代码
 ---
 ::

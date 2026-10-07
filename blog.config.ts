@@ -6,7 +6,7 @@ const basicConfig = {
 	// 长 description 利好于 SEO
 	description: '青序栈：代码与远方交汇的小站。这里记录网站部署的实战经验、技术学习的点滴思考，也分享旅途中的风景与感悟。欢迎驻足，交换故事。',
 	author: {
-		name: '筱序二十',
+		name: '筱',
 		avatar: 'https://www.qixz.cn/avatar.avif',
 		email: 'qxbk@qq.com',
 		homepage: 'https://www.qixz.cn/',
@@ -120,7 +120,7 @@ export const myFeed: FeedEntry = {
 	feed: new URL('/atom.xml', blogConfig.url).toString(),
 	icon: blogConfig.favicon,
 	avatar: blogConfig.author.avatar,
-	archs: ['Nuxt', 'Cloudflare'],
+	archs: ['Nuxt', 'ESA'],
 	date: blogConfig.timeEstablished,
 	comment: '栈主本栈啦~',
 }

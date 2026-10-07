@@ -4,7 +4,7 @@
   "version": "3.6.5",
   "private": true,
   "packageManager": "pnpm@11.8.0",
-  "homepage": "https://github.com/scfcn/blog-v3",
+  "homepage": "https://github.com/chizw/blog-v3",
   "engines": {
     "node": ">=22.15 <25",
     "pnpm": ">=11"

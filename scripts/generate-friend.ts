@@ -38,7 +38,7 @@ export function generateFcircleJson() {
 	const blacklist = ['名称1', '名称2']
 
 	// 跳过的分组（如『失联友友』）
-	const skipGroups = ['『失联友友』']
+	const skipGroups = ['失联友友']
 
 	// 使用更可靠的方法获取当前文件目录
 	const currentFileUrl = new URL(import.meta.url)

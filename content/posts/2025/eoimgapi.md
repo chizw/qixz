@@ -40,7 +40,7 @@ caption: 随机图片API效果示例
 
 ### 步骤1：Fork仓库
 
-首先，Fork这个[Acgapi](https://github.com/scfcn/acgapi)仓库到你的GitHub账户。
+首先，Fork这个[Acgapi](https://github.com/chizw/acgapi)仓库到你的GitHub账户。
 
 ### 步骤2：在Eo Pages创建项目
 
@@ -98,11 +98,11 @@ caption: Eo Pages创建项目示例
 
 - **项目名称**：随机ACG图片API
 - **维护者**：筱序二十
-- **GitHub仓库**：[https://github.com/scfcn/acgapi/](https://github.com/scfcn/acgapi/)
+- **GitHub仓库**：[https://github.com/chizw/acgapi/](https://github.com/chizw/acgapi/)
 
 
-![GitHub Stars](https://img.shields.io/github/stars/scfcn/acgapi)
-![GitHub License](https://img.shields.io/github/license/scfcn/acgapis)
+![GitHub Stars](https://img.shields.io/github/stars/chizw/acgapi)
+![GitHub License](https://img.shields.io/github/license/chizw/acgapis)
 
 ## 后续维护
 

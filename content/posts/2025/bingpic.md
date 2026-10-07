@@ -144,7 +144,7 @@ caption: 工作流执行成功
 ### Bing随机一图功能
 
 - **项目维护者**：筱序二十
-- **GitHub仓库**：[https://github.com/scfcn/daily-image/](https://github.com/scfcn/daily-image/)
+- **GitHub仓库**：[https://github.com/chizw/daily-image/](https://github.com/chizw/daily-image/)
 
 ::pic
 ---
@@ -162,7 +162,7 @@ caption: Bing随机图片效果
 ## 参考项目
 
 - [Daily Bing Image](https://github.com/willow-god/daily-image)（原项目）
-- [Bing随机一图](https://github.com/scfcn/daily-image/)（扩展项目）
+- [Bing随机一图](https://github.com/chizw/daily-image/)（扩展项目）
 
 ## 后续维护
 

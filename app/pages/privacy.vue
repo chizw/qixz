@@ -99,7 +99,7 @@ layoutStore.setAside(['blog-log', 'blog-tech'])
 			<p>如果您对本隐私协议有任何疑问或建议，请通过以下方式联系我们：</p>
 			<p>邮箱：<a :href="`mailto:${appConfig.author.email}`">{{ appConfig.author.email }}</a></p>
 			<p>QQ群：<a href="https://qm.qq.com/q/veCtZrS51e" target="_blank">665751334</a></p>
-			<p>GitHub：<a href="https://github.com/scfcn" target="_blank">scfcn</a></p>
+			<p>GitHub：<a href="https://github.com/chizw" target="_blank">chizw</a></p>
 		</div>
 
 		<div class="info-group">

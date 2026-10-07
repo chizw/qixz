@@ -102,7 +102,7 @@ const titleColor = computed(() => appConfig.header.titleColor || 'var(--c-text)'
 	justify-content: center;
 	position: absolute;
 	opacity: 0.3;
-	inset: -3%;
+	inset: 0;
 	transition: opacity 0.7s;
 	filter: blur(0.4px);
 	pointer-events: none;
